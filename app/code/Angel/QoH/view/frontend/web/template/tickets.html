@@ -1,0 +1,16 @@
+<!-- ko if: hasTickets -->
+<table class="my-tickets">
+    <tr class="head">
+        <th data-bind="i18n:'Start'"></th>
+        <th data-bind="i18n:'End'"></th>
+        <th data-bind="i18n:'Card Number'"></th>
+    </tr>
+    <!-- ko foreach: { data: tickets(), as: 'ticket'}  -->
+    <tr>
+        <td data-bind="text: ticket.start"></td>
+        <td data-bind="text: ticket.end"></td>
+        <td data-bind="text: ticket.card_number"></td>
+    </tr>
+    <!--/ko-->
+</table>
+<!--/ko-->

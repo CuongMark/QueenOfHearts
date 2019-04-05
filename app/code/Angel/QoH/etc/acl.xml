@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Angel_QoH::qoh" sortOrder="10" title="Queen of Hearch">
+					<resource id="Angel_QoH::qoh_manager" sortOrder="10" title="Queen of Hearch Management" />
+					<resource id="Angel_QoH::Ticket" sortOrder="10" title="Ticket">
+						<resource id="Angel_QoH::Ticket_save" sortOrder="10" title="Save Ticket"/>
+						<resource id="Angel_QoH::Ticket_delete" sortOrder="20" title="Delete Ticket"/>
+						<resource id="Angel_QoH::Ticket_update" sortOrder="30" title="Update Ticket"/>
+						<resource id="Angel_QoH::Ticket_view" sortOrder="40" title="View Ticket"/>
+					</resource>
+					<resource id="Angel_QoH::Prize" sortOrder="10" title="Prize">
+						<resource id="Angel_QoH::Prize_save" sortOrder="10" title="Save Prize"/>
+						<resource id="Angel_QoH::Prize_delete" sortOrder="20" title="Delete Prize"/>
+						<resource id="Angel_QoH::Prize_update" sortOrder="30" title="Update Prize"/>
+						<resource id="Angel_QoH::Prize_view" sortOrder="40" title="View Prize"/>
+					</resource>
+				</resource>
+				<resource id="Magento_Backend::stores">
+					<resource id="Magento_Backend::stores_settings">
+						<resource id="Magento_Config::config">
+							<resource id="Angel_QoH::config_angel_qoh" title="qoh"/>
+						</resource>
+					</resource>
+				</resource>
+				<resource id="Magento_Sales::sales">
+					<resource id="Angel_QoH::report" sortOrder="10" title="Queen of Hearts Report"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

@@ -1,0 +1,19 @@
+.countdown_row {
+    clear: both;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+}
+.countdown_section {
+    display: inline-block;
+    font-size: 75%;
+}
+.countdown_show4 .countdown_section {
+    width: 22%;
+    background: lightblue;
+    margin-left: 0.5%;
+    margin-bottom: 1em;
+}
+.countdown_amount {
+    font-size: 200%;
+}

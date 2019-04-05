@@ -1,0 +1,30 @@
+.purchase-message.success{
+    background-color: #0DFF92;
+}
+.purchase-message.error{
+    background-color: indianred;
+}
+.my-tickets tr.head{
+    background-color: #d1d6d8;
+}
+
+.qoh_card{
+    width: 10%;
+    display: inline-block;
+    background-image: url("../img/back-card.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: calc(4vw);
+    font-size: calc(2vw);
+    font-weight: bold;
+    text-align: center;
+}
+.card_select {
+    width: 100%;
+    margin-bottom: 20px;
+    height: calc(25vw);
+}
+
+.selected_1 .card_1, .selected_2 .card_2, .selected_3 .card_3, .selected_4 .card_4, .selected_5 .card_5, .selected_6 .card_6, .selected_7 .card_7, .selected_8 .card_8, .selected_9 .card_9, .selected_10 .card_10, .selected_11 .card_11, .selected_12 .card_12, .selected_13 .card_13, .selected_14 .card_14, .selected_15 .card_15, .selected_16 .card_16, .selected_17 .card_17, .selected_18 .card_18, .selected_19 .card_19, .selected_20 .card_20, .selected_21 .card_21, .selected_22 .card_22, .selected_23 .card_23, .selected_24 .card_24, .selected_25 .card_25, .selected_26 .card_26, .selected_27 .card_27, .selected_28 .card_28, .selected_29 .card_29, .selected_30 .card_30, .selected_31 .card_31, .selected_32 .card_32, .selected_33 .card_33, .selected_34 .card_34, .selected_35 .card_35, .selected_36 .card_36, .selected_37 .card_37, .selected_38 .card_38, .selected_39 .card_39, .selected_40 .card_40, .selected_41 .card_41, .selected_42 .card_42, .selected_43 .card_43, .selected_44 .card_44, .selected_45 .card_45, .selected_46 .card_46, .selected_47 .card_47, .selected_48 .card_48, .selected_49 .card_49, .selected_50 .card_50, .selected_51 .card_51, .selected_52 .card_52, .selected_53 .card_53, .selected_54 .card_54{
+    color: yellow;
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Angel_QoH::css/countdown.css"/>
+        <css src="Angel_QoH::css/qoh.css"/>
+    </head>
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="Angel\QoH\Block\Product\View" name="qoh.block" as="qoh.block" after="product.info.price" cacheable="false" template="Angel_QoH::product/view.phtml"/>
+            <block class="Angel\QoH\Block\Product\View" name="tickets.block" as="tickets.block" after="tickets.block" template="Angel_QoH::product/tickets.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="product.info.addtocart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Angel_QoH::product/addtocart.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="reviews.tab" remove="true" />
+    </body>
+</page>
