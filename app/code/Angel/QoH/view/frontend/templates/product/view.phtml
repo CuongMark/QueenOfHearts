@@ -6,3 +6,13 @@
     <?php $date = new \DateTime(); ?>
     <?php $finish_at = new \DateTime($block->getProduct()->getQohFinishAt()); ?>
     <div data-mage-init='{"qohCountdown": {"time_left":<?= $finish_at->getTimestamp() - $date->getTimestamp() ?>}}'></div>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Angel_QoH/js/validate": {
+                "loginUrl" : "<?= $block->getUrl('customer/account/login') ?>",
+                "jackPot" : "<?= $block->getJackPot() ?>"
+            }
+        }
+    }
+</script>

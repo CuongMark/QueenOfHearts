@@ -9,15 +9,17 @@ define([
     'Magento_Catalog/product/view/validation',
     'Angel_QoH/js/action/purchase-tickets',
     'Angel_QoH/js/model/tickets',
+    'Angel_QoH/js/model/queen-of-hearts',
     'Magento_Customer/js/customer-data',
     'Magento_Ui/js/modal/confirm',
     'mage/validation'
-], function ($, ko, mage, validation, purchaseAction, tickets, customerData, confirmation) {
+], function ($, ko, mage, validation, purchaseAction, tickets, qoh, customerData, confirmation) {
     'use strict';
 
     $.widget('qoh.qohValidate', {
         isLoading: ko.observable(false),
         tickets: tickets.tickets,
+        jackPot: qoh.jackPot,
         options: {
             bindSubmit: false,
             radioCheckboxClosest: '.nested'
@@ -51,6 +53,7 @@ define([
          */
         _create: function () {
             var self = this;
+            this.jackPot(parseFloat(self.options.jackPot));
 
             this.element.validation({
                 radioCheckboxClosest: this.options.radioCheckboxClosest,
@@ -89,6 +92,7 @@ define([
                     var tickets = self.tickets();
                     tickets.push(response);
                     self.tickets(tickets);
+                    self.jackPot(self.jackPot() + parseFloat(response.price));
                 }
                 self.isLoading(false);
                 $('#product-addtocart-button').removeClass('disabled');

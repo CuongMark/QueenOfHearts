@@ -17,6 +17,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
     private $ticketDataModel;
     private $ticketRepository;
     private $ticketManagement;
+    private $eventManager;
 
     public function __construct(
         ManagerInterface $message,
@@ -24,7 +25,8 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
         ProductRepository $productRepository,
         \Angel\QoH\Model\Data\Ticket $ticketDataModel,
         TicketRepository $ticketRepository,
-        TicketManagement $ticketManagement
+        TicketManagement $ticketManagement,
+        \Magento\Framework\Event\ManagerInterface $eventManager
     ){
         $this->messageManager = $message;
         $this->customerSession = $customerSession;
@@ -32,6 +34,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
         $this->ticketDataModel = $ticketDataModel;
         $this->ticketRepository = $ticketRepository;
         $this->ticketManagement = $ticketManagement;
+        $this->eventManager = $eventManager;
     }
 
     /**
@@ -43,7 +46,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             if ($qty<=0){
                 throw new \Exception('The Qty is not available');
             }
-            if ($cardNumber < 0 || $cardNumber > 53){
+            if ($cardNumber < 1 || $cardNumber > 54){
                 throw new \Exception('The Card Id is not available');
             }
             $product = $this->productRepository->getById($product_id);
@@ -61,7 +64,9 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
                 ->setProductId($product_id)
                 ->setCardNumber($cardNumber)
                 ->setStatus(Status::STATUS_PENDING);
+            $this->eventManager->dispatch('angel_qoh_create_new_ticket', ['ticket' => $this->ticketDataModel, 'product' => $product]);
             $ticketData = $this->ticketRepository->save($this->ticketDataModel);
+
             $this->messageManager->addSuccessMessage(__('You purchased successfully %1 tickets', $qty));
             return $ticketData;
         } catch (\Exception $e){
