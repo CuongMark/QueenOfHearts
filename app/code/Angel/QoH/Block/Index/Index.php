@@ -8,6 +8,7 @@
 namespace Angel\QoH\Block\Index;
 
 use Angel\QoH\Model\Product\Attribute\Source\Status;
+use Angel\QoH\Model\QohManagement;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Block\Product\Context;
 use Magento\Catalog\Model\Layer\Resolver;
@@ -29,6 +30,7 @@ Class Index extends \Magento\Catalog\Block\Product\ListProduct
     protected $priceCurrency;
 
     protected $customerSession;
+    private $qohManagement;
 
     public function __construct(
         Context $context,
@@ -39,12 +41,14 @@ Class Index extends \Magento\Catalog\Block\Product\ListProduct
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         PriceCurrencyInterface $priceCurrency,
         Session $customerSession,
+        QohManagement $qohManagement,
         array $data = []
     ){
         parent::__construct($context, $postDataHelper, $layerResolver, $categoryRepository, $urlHelper, $data);
         $this->productCollectionFactory = $productCollectionFactory;
         $this->priceCurrency = $priceCurrency;
         $this->customerSession = $customerSession;
+        $this->qohManagement = $qohManagement;
     }
 
     /**
@@ -61,6 +65,7 @@ Class Index extends \Magento\Catalog\Block\Product\ListProduct
             $collection->addFieldToFilter('type_id', \Angel\QoH\Model\Product\Type\Qoh::TYPE_ID);
             $collection->addAttributeToFilter('qoh_status', Status::PROCESSING);
             $collection->addStoreFilter($this->_storeManager->getStore()->getId());
+            $collection = $this->qohManagement->addJackPotToProductCollection($collection);
             $this->_productCollection = $collection;
         }
         return $this->_productCollection;

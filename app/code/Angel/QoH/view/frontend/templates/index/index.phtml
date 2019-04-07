@@ -12,7 +12,7 @@ use Magento\Framework\App\Action\Action;
 /**
  * Product list template
  *
- * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var $block \Angel\QoH\Block\Index\Index
  */
 ?>
 <?php
@@ -76,6 +76,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
 
                         <?php $finish_at = new \DateTime($_product->getQohFinishAt()); ?>
                         <div data-mage-init='{"qohCountdown": {"time_left":<?= $finish_at->getTimestamp() - $date->getTimestamp() ?>}}'></div>
+                        <div><span><?= __('JackPot') ?></span>:<?= $block->getPriceCurrency()->format($_product->getJackPot()) ?></div>
 
                         <div class="product-item-inner">
                             <div class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $position : '' ?>>
@@ -105,13 +106,6 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            <?php if ($showDescription):?>
-                                <div class="product description product-item-description">
-                                    <?= /* @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
-                                    <a href="<?= /* @escapeNotVerified */ $_product->getProductUrl() ?>" title="<?= /* @escapeNotVerified */ $_productNameStripped ?>"
-                                       class="action more"><?= /* @escapeNotVerified */ __('Learn More') ?></a>
-                                </div>
-                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

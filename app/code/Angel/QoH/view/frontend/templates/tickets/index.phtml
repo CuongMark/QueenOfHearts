@@ -17,9 +17,8 @@
                 <th scope="col" class="col name"><?= /* @escapeNotVerified */ __('Name') ?></th>
                 <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Start') ?></th>
                 <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('End') ?></th>
+                <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Board Number') ?></th>
                 <th scope="col" class="col total"><?= /* @escapeNotVerified */ __('Price') ?></th>
-                <th scope="col" class="col winning" style="min-width: 200px;"><?= /* @escapeNotVerified */ __('Winning Number') ?></th>
-                <th scope="col" class="col total"><?= /* @escapeNotVerified */ __('Winning Prize') ?></th>
                 <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Purchased At') ?></th>
                 <th scope="col" class="col status"><?= /* @escapeNotVerified */ __('Status') ?></th>
                 <th scope="col" class="col actions"><?= /* @escapeNotVerified */ __('Action') ?></th>
@@ -32,9 +31,8 @@
                     <td data-th="<?= $block->escapeHtml(__('Name')) ?>" class="col id"><a href="<?= $block->getUrl('catalog/product/view', ['id' => $_ticket->getProductId()]) ?>" ><?= /* @escapeNotVerified */ $_ticket->getProductName() ?></a></td>
                     <td data-th="<?= $block->escapeHtml(__('Start Number')) ?>" class="col id"><?= /* @escapeNotVerified */ $_ticket->getStart() ?></td>
                     <td data-th="<?= $block->escapeHtml(__('End Number')) ?>" class="col id"><?= /* @escapeNotVerified */ $_ticket->getEnd() ?></td>
+                    <td data-th="<?= $block->escapeHtml(__('End Number')) ?>" class="col id"><?= /* @escapeNotVerified */ $_ticket->getCardNumber() ?></td>
                     <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col total"><?= /* @escapeNotVerified */ $block->formatPrice($_ticket->getPrice()) ?></td>
-                    <td data-th="<?= $block->escapeHtml(__('Winning Number')) ?>" class="col total"><?= /* @escapeNotVerified */ $_ticket->getWinningNumber() ?></td>
-                    <td data-th="<?= $block->escapeHtml(__('Winning Prize')) ?>" class="col total"><?= /* @escapeNotVerified */ $_ticket->getWinningPrize()?$block->formatPrice($_ticket->getWinningPrize()):'' ?></td>
                     <td data-th="<?= $block->escapeHtml(__('Purchased At')) ?>" class="col date"><?= /* @escapeNotVerified */ $block->formatDate($_ticket->getCreatedAt(), 2 , true) ?></td>
                     <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status"><?= /* @escapeNotVerified */ $block->getStatusLabel($_ticket) ?></td>
                     <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">
