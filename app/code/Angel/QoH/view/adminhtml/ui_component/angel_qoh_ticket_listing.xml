@@ -40,27 +40,6 @@
 		<paging name="listing_paging"/>
 	</listingToolbar>
 	<columns name="angel_qoh_ticket_columns">
-		<settings>
-			<editorConfig>
-				<param name="selectProvider" xsi:type="string">angel_qoh_ticket_listing.angel_qoh_ticket_listing.angel_qoh_ticket_columns.ids</param>
-				<param name="enabled" xsi:type="boolean">true</param>
-				<param name="indexField" xsi:type="string">ticket_id</param>
-				<param name="clientConfig" xsi:type="array">
-					<item name="saveUrl" path="angel_qoh/Ticket/inlineEdit" xsi:type="url"/>
-					<item name="validateBeforeSave" xsi:type="boolean">false</item>
-				</param>
-			</editorConfig>
-			<childDefaults>
-				<param name="fieldAction" xsi:type="array">
-					<item name="provider" xsi:type="string">angel_qoh_ticket_listing.angel_qoh_ticket_listing.angel_qoh_ticket_columns_editor</item>
-					<item name="target" xsi:type="string">startEdit</item>
-					<item name="params" xsi:type="array">
-						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
-						<item name="1" xsi:type="boolean">true</item>
-					</item>
-				</param>
-			</childDefaults>
-		</settings>
 		<selectionsColumn name="ids">
 			<settings>
 				<indexField>ticket_id</indexField>
@@ -76,13 +55,57 @@
 		<column name="product_id">
 			<settings>
 				<filter>text</filter>
-				<label translate="true">product_id</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">true</rule>
-					</validation>
-				</editor>
+				<label translate="true">Product</label>
+			</settings>
+		</column>
+		<column name="customer_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Customer</label>
+			</settings>
+		</column>
+		<column name="start">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Start</label>
+			</settings>
+		</column>
+		<column name="end">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">End</label>
+			</settings>
+		</column>
+		<column name="price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Ticket Price</label>
+			</settings>
+		</column>
+		<column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Created At</label>
+			</settings>
+		</column>
+		<!--<column name="credit_transaction_id">-->
+			<!--<settings>-->
+				<!--<filter>text</filter>-->
+				<!--<label translate="true">credit_transaction_id</label>-->
+			<!--</settings>-->
+		<!--</column>-->
+		<column name="card_number">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Card Number</label>
+			</settings>
+		</column>
+		<column name="status" component="Magento_Ui/js/grid/columns/select">
+			<settings>
+				<options class="Angel\QoH\Model\Ticket\Status"/>
+				<filter>text</filter>
+				<label translate="true">Status</label>
+				<dataType>select</dataType>
 			</settings>
 		</column>
 		<actionsColumn class="Angel\QoH\Ui\Component\Listing\Column\TicketActions" name="actions">
@@ -92,89 +115,5 @@
 				<resizeDefaultWidth>107</resizeDefaultWidth>
 			</settings>
 		</actionsColumn>
-		<column name="customer_id">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">customer_id</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">true</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="start">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">start</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">true</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="end">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">end</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">true</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="price">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">price</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">true</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="created_at">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">created_at</label>
-			</settings>
-		</column>
-		<column name="credit_transaction_id">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">credit_transaction_id</label>
-			</settings>
-		</column>
-		<column name="card_number">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">card_number</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
-		<column name="status">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">status</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
 	</columns>
 </listing>

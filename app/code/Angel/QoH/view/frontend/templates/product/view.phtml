@@ -11,7 +11,8 @@
         "#product_addtocart_form": {
             "Angel_QoH/js/validate": {
                 "loginUrl" : "<?= $block->getUrl('customer/account/login') ?>",
-                "jackPot" : "<?= $block->getJackPot() ?>"
+                "jackPot" : "<?= $block->getJackPot() ?>",
+                "prizes" : <?= json_encode($block->getPrizes()) ?>
             }
         }
     }

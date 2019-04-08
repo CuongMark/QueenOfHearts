@@ -1,0 +1,20 @@
+<!-- ko if: hasPrizes -->
+<table class="prizes">
+    <tr class="head">
+        <th data-bind="i18n:'Cart'"></th>
+        <th data-bind="i18n:'Cart Number'"></th>
+        <th data-bind="i18n:'Card'"></th>
+        <th data-bind="i18n:'Prize'"></th>
+        <th data-bind="i18n:'Winning Number'"></th>
+    </tr>
+    <!-- ko foreach: { data: prizes, as: 'pr'}  -->
+    <tr>
+        <td data-bind="text: cart"></td>
+        <td data-bind="text: prize"></td>
+        <td data-bind="text: prize"></td>
+        <td data-bind="text: prize"></td>
+        <td data-bind="text: prize"></td>
+    </tr>
+    <!--/ko-->
+</table>
+<!--/ko-->

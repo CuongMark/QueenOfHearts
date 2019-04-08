@@ -51,6 +51,14 @@ class QohManagement
 
     /**
      * @param Product $product
+     * @return ResourceModel\Prize\Collection
+     */
+    public function getPrizes($product){
+        return $this->prizeManagement->getPrizes($product->getId());
+    }
+
+    /**
+     * @param Product $product
      */
     public function updateStatus($product){
         try {

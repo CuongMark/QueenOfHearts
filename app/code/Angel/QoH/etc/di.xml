@@ -4,12 +4,12 @@
 	<preference for="Angel\QoH\Api\TicketRepositoryInterface" type="Angel\QoH\Model\TicketRepository"/>
 	<preference for="Angel\QoH\Api\Data\TicketInterface" type="Angel\QoH\Model\Data\Ticket"/>
 	<preference for="Angel\QoH\Api\Data\TicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
-	<virtualType name="Angel\QoH\Model\ResourceModel\Ticket\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
-		<arguments>
-			<argument name="mainTable" xsi:type="string">angel_qoh_ticket</argument>
-			<argument name="resourceModel" xsi:type="string">Angel\QoH\Model\ResourceModel\Ticket\Collection</argument>
-		</arguments>
-	</virtualType>
+	<!--<virtualType name="Angel\QoH\Model\ResourceModel\Ticket\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">-->
+		<!--<arguments>-->
+			<!--<argument name="mainTable" xsi:type="string">angel_qoh_ticket</argument>-->
+			<!--<argument name="resourceModel" xsi:type="string">Angel\QoH\Model\ResourceModel\Ticket\Collection</argument>-->
+		<!--</arguments>-->
+	<!--</virtualType>-->
 	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
 		<arguments>
 			<argument name="collections" xsi:type="array">
@@ -21,10 +21,10 @@
 	<preference for="Angel\QoH\Api\PrizeRepositoryInterface" type="Angel\QoH\Model\PrizeRepository"/>
 	<preference for="Angel\QoH\Api\Data\PrizeInterface" type="Angel\QoH\Model\Data\Prize"/>
 	<preference for="Angel\QoH\Api\Data\PrizeSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
-	<virtualType name="Angel\QoH\Model\ResourceModel\Prize\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
-		<arguments>
-			<argument name="mainTable" xsi:type="string">angel_qoh_prize</argument>
-			<argument name="resourceModel" xsi:type="string">Angel\QoH\Model\ResourceModel\Prize\Collection</argument>
-		</arguments>
-	</virtualType>
+	<!--<virtualType name="Angel\QoH\Model\ResourceModel\Prize\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">-->
+		<!--<arguments>-->
+			<!--<argument name="mainTable" xsi:type="string">angel_qoh_prize</argument>-->
+			<!--<argument name="resourceModel" xsi:type="string">Angel\QoH\Model\ResourceModel\Prize\Collection</argument>-->
+		<!--</arguments>-->
+	<!--</virtualType>-->
 </config>

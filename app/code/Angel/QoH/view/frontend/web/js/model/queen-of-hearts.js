@@ -10,6 +10,7 @@ define([
     'use strict';
 
     return {
-        jackPot: ko.observable(0)
+        jackPot: ko.observable(0),
+        prizes: ko.observable([]),
     };
 });

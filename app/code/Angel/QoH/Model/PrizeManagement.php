@@ -39,6 +39,7 @@ class PrizeManagement
             ->setWinningNumber($ticket->getWinningNumber())
             ->setPrize(0)
             ->setCard(0)
+            ->setCardNumber($ticket->getCardNumber())
             ->setTicketId($ticket->getId())
             ->setTransaction('')
             ->setStatus(Status::STATUS_PENDING);

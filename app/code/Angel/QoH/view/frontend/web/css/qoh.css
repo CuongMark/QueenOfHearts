@@ -4,7 +4,7 @@
     background-image: url("../img/back-card.png");
     background-repeat: no-repeat;
     background-size: 100%;
-    height: calc(3vw);
+    height: calc(4vw);
     font-size: calc(2vw);
     font-weight: bold;
     text-align: center;
@@ -15,14 +15,81 @@
     margin-bottom: 20px;
 }
 
-.selected_1 .card_1, .selected_2 .card_2, .selected_3 .card_3, .selected_4 .card_4, .selected_5 .card_5, .selected_6 .card_6, .selected_7 .card_7, .selected_8 .card_8, .selected_9 .card_9, .selected_10 .card_10, .selected_11 .card_11, .selected_12 .card_12, .selected_13 .card_13, .selected_14 .card_14, .selected_15 .card_15, .selected_16 .card_16, .selected_17 .card_17, .selected_18 .card_18, .selected_19 .card_19, .selected_20 .card_20, .selected_21 .card_21, .selected_22 .card_22, .selected_23 .card_23, .selected_24 .card_24, .selected_25 .card_25, .selected_26 .card_26, .selected_27 .card_27, .selected_28 .card_28, .selected_29 .card_29, .selected_30 .card_30, .selected_31 .card_31, .selected_32 .card_32, .selected_33 .card_33, .selected_34 .card_34, .selected_35 .card_35, .selected_36 .card_36, .selected_37 .card_37, .selected_38 .card_38, .selected_39 .card_39, .selected_40 .card_40, .selected_41 .card_41, .selected_42 .card_42, .selected_43 .card_43, .selected_44 .card_44, .selected_45 .card_45, .selected_46 .card_46, .selected_47 .card_47, .selected_48 .card_48, .selected_49 .card_49, .selected_50 .card_50, .selected_51 .card_51, .selected_52 .card_52, .selected_53 .card_53, .selected_54 .card_54{
-    color: yellow;
-    background-image: url("../img/back-card-selected.png");
-}
+
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) and (min-width: 768px){
     .qoh_card {
         height: calc(2vw);
         font-size: calc(1.5vw);
     }
+}
+
+.card_image_1{background-image: url("../img/cards/ace_clubs.png") !important;}
+.card_image_2{background-image: url("../img/cards/two_clubs.png") !important;}
+.card_image_3{background-image: url("../img/cards/three_clubs.png") !important;}
+.card_image_4{background-image: url("../img/cards/four_clubs.png") !important;}
+.card_image_5{background-image: url("../img/cards/five_clubs.png") !important;}
+.card_image_6{background-image: url("../img/cards/six_clubs.png") !important;}
+.card_image_7{background-image: url("../img/cards/seven_clubs.png") !important;}
+.card_image_8{background-image: url("../img/cards/eight_clubs.png") !important;}
+.card_image_9{background-image: url("../img/cards/nice_clubs.png") !important;}
+.card_image_10{background-image: url("../img/cards/ten_clubs.png") !important;}
+.card_image_11{background-image: url("../img/cards/jack_clubs.png") !important;}
+.card_image_12{background-image: url("../img/cards/queen_clubs.png") !important;}
+.card_image_13{background-image: url("../img/cards/king_clubs.png") !important;}
+
+.card_image_14{background-image: url("../img/cards/ace_diamonds.png") !important;}
+.card_image_15{background-image: url("../img/cards/two_diamonds.png") !important;}
+.card_image_16{background-image: url("../img/cards/three_diamonds.png") !important;}
+.card_image_17{background-image: url("../img/cards/four_diamonds.png") !important;}
+.card_image_18{background-image: url("../img/cards/five_diamonds.png") !important;}
+.card_image_19{background-image: url("../img/cards/six_diamonds.png") !important;}
+.card_image_20{background-image: url("../img/cards/sevens_diamonds.png") !important;}
+.card_image_21{background-image: url("../img/cards/eight_diamonds.png") !important;}
+.card_image_22{background-image: url("../img/cards/nine_diamonds.png") !important;}
+.card_image_23{background-image: url("../img/cards/ten_diamonds.png") !important;}
+.card_image_24{background-image: url("../img/cards/jack_diamonds.png") !important;}
+.card_image_25{background-image: url("../img/cards/queen_diamonds.png") !important;}
+.card_image_26{background-image: url("../img/cards/king_diamonds.png") !important;}
+
+.card_image_27{background-image: url("../img/cards/ace_hearts.png") !important;}
+.card_image_28{background-image: url("../img/cards/two_hearts.png") !important;}
+.card_image_29{background-image: url("../img/cards/three_hearts.png") !important;}
+.card_image_30{background-image: url("../img/cards/four_hearts.png") !important;}
+.card_image_31{background-image: url("../img/cards/five_hearts.png") !important;}
+.card_image_32{background-image: url("../img/cards/six_hearts.png") !important;}
+.card_image_33{background-image: url("../img/cards/seven_hearts.png") !important;}
+.card_image_34{background-image: url("../img/cards/eight_hearts.png") !important;}
+.card_image_35{background-image: url("../img/cards/nine_hearts.png") !important;}
+.card_image_36{background-image: url("../img/cards/ten_hearts.png") !important;}
+.card_image_37{background-image: url("../img/cards/jack_hearts.png") !important;}
+.card_image_38{background-image: url("../img/cards/queen_hearts.png") !important;}
+.card_image_39{background-image: url("../img/cards/king_hearts.png") !important;}
+
+.card_image_40{background-image: url("../img/cards/ace_spades.png") !important;}
+.card_image_41{background-image: url("../img/cards/two_spades.png") !important;}
+.card_image_42{background-image: url("../img/cards/three_spades.png") !important;}
+.card_image_43{background-image: url("../img/cards/four_spades.png") !important;}
+.card_image_44{background-image: url("../img/cards/five_spades.png") !important;}
+.card_image_45{background-image: url("../img/cards/six_spades.png") !important;}
+.card_image_46{background-image: url("../img/cards/seven_spades.png") !important;}
+.card_image_47{background-image: url("../img/cards/eight_spades.png") !important;}
+.card_image_48{background-image: url("../img/cards/nine_spades.png") !important;}
+.card_image_49{background-image: url("../img/cards/ten_spades.png") !important;}
+.card_image_50{background-image: url("../img/cards/jack_spades.png") !important;}
+.card_image_51{background-image: url("../img/cards/queen_spades.png") !important;}
+.card_image_52{background-image: url("../img/cards/king_spades.png") !important;}
+
+.card_image_12{background-image: url("../img/cards/jocker_a.png") !important;}
+.card_image_13{background-image: url("../img/cards/jocker_b.png") !important;}
+
+.drawed {
+    cursor: default;
+    pointer-events: none;
+    color: dimgray;
+}
+
+.selected_1 .card_1, .selected_2 .card_2, .selected_3 .card_3, .selected_4 .card_4, .selected_5 .card_5, .selected_6 .card_6, .selected_7 .card_7, .selected_8 .card_8, .selected_9 .card_9, .selected_10 .card_10, .selected_11 .card_11, .selected_12 .card_12, .selected_13 .card_13, .selected_14 .card_14, .selected_15 .card_15, .selected_16 .card_16, .selected_17 .card_17, .selected_18 .card_18, .selected_19 .card_19, .selected_20 .card_20, .selected_21 .card_21, .selected_22 .card_22, .selected_23 .card_23, .selected_24 .card_24, .selected_25 .card_25, .selected_26 .card_26, .selected_27 .card_27, .selected_28 .card_28, .selected_29 .card_29, .selected_30 .card_30, .selected_31 .card_31, .selected_32 .card_32, .selected_33 .card_33, .selected_34 .card_34, .selected_35 .card_35, .selected_36 .card_36, .selected_37 .card_37, .selected_38 .card_38, .selected_39 .card_39, .selected_40 .card_40, .selected_41 .card_41, .selected_42 .card_42, .selected_43 .card_43, .selected_44 .card_44, .selected_45 .card_45, .selected_46 .card_46, .selected_47 .card_47, .selected_48 .card_48, .selected_49 .card_49, .selected_50 .card_50, .selected_51 .card_51, .selected_52 .card_52, .selected_53 .card_53, .selected_54 .card_54{
+    color: yellow;
+    background-image: url("../img/back-card-selected.png");
 }

@@ -20,6 +20,7 @@ define([
         isLoading: ko.observable(false),
         tickets: tickets.tickets,
         jackPot: qoh.jackPot,
+        prizes: qoh.prizes,
         options: {
             bindSubmit: false,
             radioCheckboxClosest: '.nested'
@@ -54,6 +55,7 @@ define([
         _create: function () {
             var self = this;
             this.jackPot(parseFloat(self.options.jackPot));
+            this.prizes(self.options.prizes);
 
             this.element.validation({
                 radioCheckboxClosest: this.options.radioCheckboxClosest,

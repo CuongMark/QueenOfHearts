@@ -18,7 +18,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     const ACE_CLUBS = 1;
     const TWO_CLUBS = 2;
     const THREE_CLUBS = 3;
-    const FORE_CLUBS = 4;
+    const FOUR_CLUBS = 4;
     const FIVE_CLUBS = 5;
     const SIX_CLUBS = 6;
     const SEVEN_CLUBS = 7;
@@ -31,7 +31,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     const ACE_DIAMONDS = 14;
     const TWO_DIAMONDS = 15;
     const THREE_DIAMONDS = 16;
-    const FORE_DIAMONDS = 17;
+    const FOUR_DIAMONDS = 17;
     const FIVE_DIAMONDS = 17;
     const SIX_DIAMONDS = 19;
     const SEVEN_DIAMONDS = 20;
@@ -44,7 +44,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     const ACE_HEARTS = 27;
     const TWO_HEARTS = 28;
     const THREE_HEARTS = 29;
-    const FORE_HEARTS = 30;
+    const FOUR_HEARTS = 30;
     const FIVE_HEARTS = 31;
     const SIX_HEARTS = 31;
     const SEVEN_HEARTS = 33;
@@ -57,7 +57,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     const ACE_SPADES = 40;
     const TWO_SPADES = 41;
     const THREE_SPADES = 42;
-    const FORE_SPADES = 43;
+    const FOUR_SPADES = 43;
     const FIVE_SPADES = 44;
     const SIX_SPADES = 45;
     const SEVEN_SPADES = 46;
@@ -82,7 +82,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             ['value' => self::ACE_CLUBS, 'label' => __('Ace Clubs')],
             ['value' => self::TWO_CLUBS, 'label' => __('Two Clubs')],
             ['value' => self::THREE_CLUBS, 'label' => __('Three Clubs')],
-            ['value' => self::FORE_CLUBS, 'label' => __('Fore Clubs')],
+            ['value' => self::FOUR_CLUBS, 'label' => __('Four Clubs')],
             ['value' => self::FIVE_CLUBS, 'label' => __('Five Clubs')],
             ['value' => self::SIX_CLUBS, 'label' => __('Six Clubs')],
             ['value' => self::SEVEN_CLUBS, 'label' => __('Seven Clubs')],
@@ -92,10 +92,11 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             ['value' => self::JACK_CLUBS, 'label' => __('Jack Clubs')],
             ['value' => self::QUEEN_CLUBS, 'label' => __('Queen Clubs')],
             ['value' => self::KING_CLUBS, 'label' => __('King Clubs')],
+
             ['value' => self::ACE_DIAMONDS, 'label' => __('Ace Diamonds')],
             ['value' => self::TWO_DIAMONDS, 'label' => __('Two Diamonds')],
             ['value' => self::THREE_DIAMONDS, 'label' => __('Three Diamonds')],
-            ['value' => self::FORE_DIAMONDS, 'label' => __('Fore Diamonds')],
+            ['value' => self::FOUR_DIAMONDS, 'label' => __('Four Diamonds')],
             ['value' => self::FIVE_DIAMONDS, 'label' => __('Five Diamonds')],
             ['value' => self::SIX_DIAMONDS, 'label' => __('Six Diamonds')],
             ['value' => self::SEVEN_DIAMONDS, 'label' => __('Seven Diamonds')],
@@ -105,10 +106,11 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             ['value' => self::JACK_DIAMONDS, 'label' => __('Jack Diamonds')],
             ['value' => self::QUEEN_DIAMONDS, 'label' => __('Queen Diamonds')],
             ['value' => self::KING_DIAMONDS, 'label' => __('King Diamonds')],
+
             ['value' => self::ACE_HEARTS, 'label' => __('Ace Hearts')],
             ['value' => self::TWO_HEARTS, 'label' => __('Two Hearts')],
             ['value' => self::THREE_HEARTS, 'label' => __('Three Hearts')],
-            ['value' => self::FORE_HEARTS, 'label' => __('Fore Hearts')],
+            ['value' => self::FOUR_HEARTS, 'label' => __('Four Hearts')],
             ['value' => self::FIVE_HEARTS, 'label' => __('Five Hearts')],
             ['value' => self::SIX_HEARTS, 'label' => __('Six Hearts')],
             ['value' => self::SEVEN_HEARTS, 'label' => __('Seven Hearts')],
@@ -118,10 +120,11 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             ['value' => self::JACK_HEARTS, 'label' => __('Jack Hearts')],
             ['value' => self::QUEEN_HEARTS, 'label' => __('Queen Hearts')],
             ['value' => self::KING_HEARTS, 'label' => __('King Hearts')],
+
             ['value' => self::ACE_SPADES, 'label' => __('Ace Spades')],
             ['value' => self::TWO_SPADES, 'label' => __('Two Spades')],
             ['value' => self::THREE_SPADES, 'label' => __('Three Spades')],
-            ['value' => self::FORE_SPADES, 'label' => __('Fore Spades')],
+            ['value' => self::FOUR_SPADES, 'label' => __('Four Spades')],
             ['value' => self::FIVE_SPADES, 'label' => __('Five Spades')],
             ['value' => self::SIX_SPADES, 'label' => __('Six Spades')],
             ['value' => self::SEVEN_SPADES, 'label' => __('Seven Spades')],
@@ -149,7 +152,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             self::ACE_CLUBS => __('Ace Clubs'),
             self::TWO_CLUBS => __('Two Clubs'),
             self::THREE_CLUBS => __('Three Clubs'),
-            self::FORE_CLUBS => __('Fore Clubs'),
+            self::FOUR_CLUBS => __('Four Clubs'),
             self::FIVE_CLUBS => __('Five Clubs'),
             self::SIX_CLUBS => __('Six Clubs'),
             self::SEVEN_CLUBS => __('Seven Clubs'),
@@ -162,7 +165,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             self::ACE_DIAMONDS => __('Ace Diamonds'),
             self::TWO_DIAMONDS => __('Two Diamonds'),
             self::THREE_DIAMONDS => __('Three Diamonds'),
-            self::FORE_DIAMONDS => __('Fore Diamonds'),
+            self::FOUR_DIAMONDS => __('Four Diamonds'),
             self::FIVE_DIAMONDS => __('Five Diamonds'),
             self::SIX_DIAMONDS => __('Six Diamonds'),
             self::SEVEN_DIAMONDS => __('Seven Diamonds'),
@@ -175,7 +178,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             self::ACE_HEARTS => __('Ace Hearts'),
             self::TWO_HEARTS => __('Two Hearts'),
             self::THREE_HEARTS => __('Three Hearts'),
-            self::FORE_HEARTS => __('Fore Hearts'),
+            self::FOUR_HEARTS => __('Four Hearts'),
             self::FIVE_HEARTS => __('Five Hearts'),
             self::SIX_HEARTS => __('Six Hearts'),
             self::SEVEN_HEARTS => __('Seven Hearts'),
@@ -188,7 +191,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             self::ACE_SPADES => __('Ace Spades'),
             self::TWO_SPADES => __('Two Spades'),
             self::THREE_SPADES => __('Three Spades'),
-            self::FORE_SPADES => __('Fore Spades'),
+            self::FOUR_SPADES => __('Four Spades'),
             self::FIVE_SPADES => __('Five Spades'),
             self::SIX_SPADES => __('Six Spades'),
             self::SEVEN_SPADES => __('Seven Spades'),

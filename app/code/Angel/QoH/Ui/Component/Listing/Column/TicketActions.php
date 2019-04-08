@@ -38,7 +38,7 @@ class TicketActions extends \Magento\Ui\Component\Listing\Columns\Column
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {
-            foreach ($dataSource['data']['items'] as & $item) {
+            fourach ($dataSource['data']['items'] as & $item) {
                 if (isset($item['ticket_id'])) {
                     $item[$this->getData('name')] = [
                         'edit' => [

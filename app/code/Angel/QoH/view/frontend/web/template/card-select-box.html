@@ -2,7 +2,7 @@
     <input type="hidden" name="cardNumber" id="cardNumber" data-bind="attr: {'value': selectedCardNumber}" title="Card Number" class="input-text qty" data-validate='{"required-number":true,"validate-item-quantity":{"minAllowed":1,"maxAllowed":53}}' />
     <div class="card_select" data-bind="css: selectedCardClass">
         <!-- ko foreach: { data: cards, as: 'card' } -->
-            <div class="qoh_card" data-bind="css: 'card_' + card.card_number, text: card.card_number, click: $parent.updateCardNumber(card_number)">
+            <div class="qoh_card" data-bind="css: $parent.getSelectedCardClass(card_number), text: card.card_number, click: $parent.updateCardNumber(card_number)">
             </div>
         <!-- /ko -->
     </div>

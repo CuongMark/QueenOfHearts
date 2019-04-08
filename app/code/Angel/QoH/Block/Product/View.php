@@ -31,4 +31,20 @@ class View extends \Magento\Catalog\Block\Product\View
     public function getJackPot(){
         return $this->qohManagement->getJackPot($this->getProduct());
     }
+
+    /**
+     * @return array
+     */
+    public function getPrizes(){
+        $fields = ['prize_id', 'card', 'card_number', 'prize', 'winning_number'];
+        $prizes = $this->qohManagement->getPrizes($this->getProduct());
+        $prizeData = [];
+        foreach ($prizes as $prize){
+            foreach ($fields as $field){
+                $data[$field] = $prize->getData($field);
+            }
+            $prizeData[] = $data;
+        }
+        return $prizeData;
+    }
 }
