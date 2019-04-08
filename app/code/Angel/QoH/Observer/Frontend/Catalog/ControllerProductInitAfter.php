@@ -3,8 +3,18 @@
 
 namespace Angel\QoH\Observer\Frontend\Catalog;
 
+use Angel\QoH\Model\QohManagement;
+
 class ControllerProductInitAfter implements \Magento\Framework\Event\ObserverInterface
 {
+
+    private $qohManagement;
+
+    public function __construct(
+        QohManagement $qohManagement
+    ){
+        $this->qohManagement = $qohManagement;
+    }
 
     /**
      * Execute observer
@@ -15,6 +25,8 @@ class ControllerProductInitAfter implements \Magento\Framework\Event\ObserverInt
     public function execute(
         \Magento\Framework\Event\Observer $observer
     ) {
-        //Your observer code
+        /** @var \Magento\Catalog\Model\Product $product */
+        $product = $observer->getEvent()->getProduct();
+        $this->qohManagement->updateStatus($product);
     }
 }

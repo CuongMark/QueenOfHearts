@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="qoh_general" xsi:type="array">
+                    <item name="class" xsi:type="string">Angel\QoH\Ui\DataProvider\Product\Form\Modifier\General</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                </item>
+            </argument>
+            <argument name="modifiers" xsi:type="array">
+                <item name="qoh_prizes" xsi:type="array">
+                    <item name="class" xsi:type="string">Angel\QoH\Ui\DataProvider\Product\Form\Modifier\Prizes</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                </item>
+            </argument>
+            <argument name="modifiers" xsi:type="array">
+                <item name="qoh_tickets" xsi:type="array">
+                    <item name="class" xsi:type="string">Angel\QoH\Ui\DataProvider\Product\Form\Modifier\Tickets</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\ProductDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+</config>

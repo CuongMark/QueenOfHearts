@@ -13,6 +13,7 @@ interface TicketInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const START = 'start';
     const CREDIT_TRANSACTION_ID = 'credit_transaction_id';
     const PRICE = 'price';
+    const SERIAL = 'serial';
     const CUSTOMER_ID = 'customer_id';
     const CREATED_AT = 'created_at';
     const END = 'end';
@@ -161,4 +162,17 @@ interface TicketInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Angel\QoH\Api\Data\TicketInterface
      */
     public function setStatus($status);
+
+    /**
+     * Get serial
+     * @return string|null
+     */
+    public function getSerial();
+
+    /**
+     * Set serial
+     * @param string $serial
+     * @return \Angel\QoH\Api\Data\TicketInterface
+     */
+    public function setSerial($serial);
 }

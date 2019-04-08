@@ -2,9 +2,17 @@
 
 
 namespace Angel\QoH\Observer\Backend\Catalog;
+use Angel\QoH\Model\QohManagement;
 
 class ProductEditAction implements \Magento\Framework\Event\ObserverInterface
 {
+    private $qohManagement;
+
+    public function __construct(
+        QohManagement $qohManagement
+    ){
+        $this->qohManagement = $qohManagement;
+    }
 
     /**
      * Execute observer
@@ -15,6 +23,8 @@ class ProductEditAction implements \Magento\Framework\Event\ObserverInterface
     public function execute(
         \Magento\Framework\Event\Observer $observer
     ) {
-        //Your observer code
+        /** @var \Magento\Catalog\Model\Product $product */
+        $product = $observer->getEvent()->getProduct();
+        $this->qohManagement->updateStatus($product);
     }
 }

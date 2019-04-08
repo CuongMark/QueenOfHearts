@@ -100,6 +100,25 @@ class InstallSchema implements InstallSchemaInterface
             'status'
         );
 
+
+        $table_angel_qoh_ticket->addColumn(
+            'serial',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            ['nullable' => False],
+            'Serial Number'
+        );
+
+        $table_angel_qoh_ticket->addIndex(
+            $setup->getIdxName(
+                'angel_qoh_ticket',
+                ['serial'],
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
+            ),
+            ['serial'],
+            ['type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE]
+        );
+
         $table_angel_qoh_ticket->addIndex(
             $setup->getIdxName(
                 'angel_qoh_ticket',
@@ -137,11 +156,11 @@ class InstallSchema implements InstallSchemaInterface
         );
 
         $table_angel_qoh_prize->addColumn(
-            'picked_number',
+            'winning_number',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             null,
             [],
-            'Picked Numbers'
+            'Winning Numbers'
         );
 
         $table_angel_qoh_prize->addColumn(
@@ -226,6 +245,22 @@ class InstallSchema implements InstallSchemaInterface
             $setup->getTable('catalog_product_entity'),
             'entity_id',
             Table::ACTION_CASCADE
+        );
+
+        $table_angel_qoh_prize->addColumn(
+            'card_number',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            [],
+            'Card Number'
+        );
+
+        $table_angel_qoh_prize->addColumn(
+            'transaction',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            [],
+            'transaction'
         );
 
         //Your install script

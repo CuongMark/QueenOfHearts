@@ -63,7 +63,10 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
                 ->setCustomerId($customerId)
                 ->setProductId($product_id)
                 ->setCardNumber($cardNumber)
-                ->setStatus(Status::STATUS_PENDING);
+                ->setStatus(Status::STATUS_PENDING)
+                ->setSerial($this->generateSerial());
+
+
             $this->eventManager->dispatch('angel_qoh_create_new_ticket', ['ticket' => $this->ticketDataModel, 'product' => $product]);
             $ticketData = $this->ticketRepository->save($this->ticketDataModel);
 
@@ -72,5 +75,15 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
         } catch (\Exception $e){
             $this->messageManager->addErrorMessage($e->getMessage());
         }
+    }
+
+    private function generateSerial()
+    {
+        $characters = '0123456789';
+        $randstring = '';
+        for ($i = 0; $i < 13; $i++) {
+            $randstring .= $characters[rand(0, strlen($characters)-1)];
+        }
+        return $randstring;
     }
 }

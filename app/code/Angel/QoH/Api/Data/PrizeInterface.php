@@ -8,13 +8,15 @@ interface PrizeInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 
     const PRIZE_ID = 'prize_id';
     const STATUS = 'status';
+    const WINNING_NUMBER = 'winning_number';
     const TICKET_ID = 'ticket_id';
     const START_AT = 'start_at';
+    const CARD_NUMBER = 'card_number';
     const PRODUCT_ID = 'product_id';
     const CARD = 'card';
+    const TRANSACTION = 'transaction';
     const END_AT = 'end_at';
     const CREATED_AT = 'created_at';
-    const PICKED_NUMBER = 'picked_number';
     const PRIZE = 'prize';
 
     /**
@@ -59,17 +61,17 @@ interface PrizeInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     );
 
     /**
-     * Get picked_number
+     * Get winning_number
      * @return string|null
      */
-    public function getPickedNumber();
+    public function getWinningNumber();
 
     /**
-     * Set picked_number
-     * @param string $pickedNumber
+     * Set winning_number
+     * @param string $winningNumber
      * @return \Angel\QoH\Api\Data\PrizeInterface
      */
-    public function setPickedNumber($pickedNumber);
+    public function setWinningNumber($winningNumber);
 
     /**
      * Get ticket_id
@@ -161,4 +163,30 @@ interface PrizeInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Angel\QoH\Api\Data\PrizeInterface
      */
     public function setStatus($status);
+
+    /**
+     * Get card_number
+     * @return string|null
+     */
+    public function getCardNumber();
+
+    /**
+     * Set card_number
+     * @param string $cardNumber
+     * @return \Angel\QoH\Api\Data\PrizeInterface
+     */
+    public function setCardNumber($cardNumber);
+
+    /**
+     * Get transaction
+     * @return string|null
+     */
+    public function getTransaction();
+
+    /**
+     * Set transaction
+     * @param string $transaction
+     * @return \Angel\QoH\Api\Data\PrizeInterface
+     */
+    public function setTransaction($transaction);
 }

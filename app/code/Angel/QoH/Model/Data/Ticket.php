@@ -217,4 +217,23 @@ class Ticket extends \Magento\Framework\Api\AbstractExtensibleObject implements 
     {
         return $this->setData(self::STATUS, $status);
     }
+
+    /**
+     * Get serial
+     * @return string|null
+     */
+    public function getSerial()
+    {
+        return $this->_get(self::SERIAL);
+    }
+
+    /**
+     * Set serial
+     * @param string $serial
+     * @return \Angel\QoH\Api\Data\TicketInterface
+     */
+    public function setSerial($serial)
+    {
+        return $this->setData(self::SERIAL, $serial);
+    }
 }

@@ -67,22 +67,22 @@ class Prize extends \Magento\Framework\Api\AbstractExtensibleObject implements P
     }
 
     /**
-     * Get picked_number
+     * Get winning_number
      * @return string|null
      */
-    public function getPickedNumber()
+    public function getWinningNumber()
     {
-        return $this->_get(self::PICKED_NUMBER);
+        return $this->_get(self::WINNING_NUMBER);
     }
 
     /**
-     * Set picked_number
-     * @param string $pickedNumber
+     * Set winning_number
+     * @param string $winningNumber
      * @return \Angel\QoH\Api\Data\PrizeInterface
      */
-    public function setPickedNumber($pickedNumber)
+    public function setWinningNumber($winningNumber)
     {
-        return $this->setData(self::PICKED_NUMBER, $pickedNumber);
+        return $this->setData(self::WINNING_NUMBER, $winningNumber);
     }
 
     /**
@@ -216,5 +216,43 @@ class Prize extends \Magento\Framework\Api\AbstractExtensibleObject implements P
     public function setStatus($status)
     {
         return $this->setData(self::STATUS, $status);
+    }
+
+    /**
+     * Get card_number
+     * @return string|null
+     */
+    public function getCardNumber()
+    {
+        return $this->_get(self::CARD_NUMBER);
+    }
+
+    /**
+     * Set card_number
+     * @param string $cardNumber
+     * @return \Angel\QoH\Api\Data\PrizeInterface
+     */
+    public function setCardNumber($cardNumber)
+    {
+        return $this->setData(self::CARD_NUMBER, $cardNumber);
+    }
+
+    /**
+     * Get transaction
+     * @return string|null
+     */
+    public function getTransaction()
+    {
+        return $this->_get(self::TRANSACTION);
+    }
+
+    /**
+     * Set transaction
+     * @param string $transaction
+     * @return \Angel\QoH\Api\Data\PrizeInterface
+     */
+    public function setTransaction($transaction)
+    {
+        return $this->setData(self::TRANSACTION, $transaction);
     }
 }

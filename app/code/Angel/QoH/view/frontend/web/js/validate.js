@@ -88,7 +88,7 @@ define([
                 }
             });
             purchaseAction.registerPurchaseCallback(function (purchaseData, response) {
-                if (response){
+                if (response && response.ticket_id){
                     var tickets = self.tickets();
                     tickets.push(response);
                     self.tickets(tickets);

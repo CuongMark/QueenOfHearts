@@ -75,8 +75,9 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                         <?= $block->getProductDetailsHtml($_product) ?>
 
                         <?php $finish_at = new \DateTime($_product->getQohFinishAt()); ?>
-                        <div data-mage-init='{"qohCountdown": {"time_left":<?= $finish_at->getTimestamp() - $date->getTimestamp() ?>}}'></div>
                         <div><span><?= __('JackPot') ?></span>:<?= $block->getPriceCurrency()->format($_product->getJackPot()) ?></div>
+                        <div data-mage-init='{"qohCountdown": {"time_left":<?= $finish_at->getTimestamp() - $date->getTimestamp() ?>}}'></div>
+
 
                         <div class="product-item-inner">
                             <div class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $position : '' ?>>
