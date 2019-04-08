@@ -63,7 +63,7 @@ Class Index extends \Magento\Catalog\Block\Product\ListProduct
             $collection->addAttributeToFilter('visibility', \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH);
             $collection->addAttributeToFilter('status', \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
             $collection->addFieldToFilter('type_id', \Angel\QoH\Model\Product\Type\Qoh::TYPE_ID);
-            $collection->addAttributeToFilter('qoh_status', Status::PROCESSING);
+            $collection->addAttributeToFilter('qoh_status', ['in' => [Status::PROCESSING, Status::WAITING]]);
             $collection->addStoreFilter($this->_storeManager->getStore()->getId());
             $collection = $this->qohManagement->addJackPotToProductCollection($collection);
             $this->_productCollection = $collection;

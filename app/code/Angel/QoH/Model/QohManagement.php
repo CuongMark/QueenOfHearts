@@ -34,7 +34,7 @@ class QohManagement
     }
 
     public function getJackPot($product){
-        return $product->getData('oqh_start_pot') + $this->ticketManagement->getTotalSale($product->getId());
+        return $product->getData('oqh_start_pot') + $this->ticketManagement->getTotalSale($product->getId()) - $this->prizeManagement->getTotalPrize($product->getId());
     }
 
     /**
@@ -43,8 +43,9 @@ class QohManagement
      */
     public function addJackPotToProductCollection($collection){
         $collection = $this->ticketManagement->joinTotalSales($collection);
+        $collection = $this->prizeManagement->joinTotalSales($collection);
         $collection->joinAttribute('oqh_start_pot', 'catalog_product/oqh_start_pot', 'entity_id', null, 'inner');
-        $collection->getSelect()->columns(['jack_pot' => '(at_oqh_start_pot.value + IF(ticket_total_price.total_price, ticket_total_price.total_price, 0))']);
+        $collection->getSelect()->columns(['jack_pot' => '(at_oqh_start_pot.value + IF(ticket_total_price.total_price, ticket_total_price.total_price, 0) - IF(total_prize.total_prize, total_prize.total_prize, 0))']);
         return $collection;
     }
 

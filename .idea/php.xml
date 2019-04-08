@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="F:/Setup/Magento-CE-2.2.7/vendor" />
+      <path value="F:/Setup/gen" />
+    </include_path>
+  </component>
+</project>
