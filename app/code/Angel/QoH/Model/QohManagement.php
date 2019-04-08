@@ -78,8 +78,6 @@ class QohManagement
                 $product->getResource()->commit();
             }
         } catch (\Exception $e){
-            \Zend_Debug::dump($e->__toString());
-            die('34');
             $product->getResource()->rollBack();
         }
 
