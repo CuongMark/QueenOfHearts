@@ -39,7 +39,39 @@
 		<settings>
 			<label/>
 		</settings>
-		<field formElement="input" name="winning_number" sortOrder="110">
+		<field formElement="input" name="product_name" sortOrder="10">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Prize</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Product</label>
+				<dataScope>product_name</dataScope>
+				<disabled>true</disabled>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="customer_email" sortOrder="20">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Prize</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Customer Email</label>
+				<dataScope>customer_email</dataScope>
+				<disabled>true</disabled>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+		<field formElement="input" name="winning_number" sortOrder="30">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="source" xsi:type="string">Prize</item>
@@ -49,14 +81,26 @@
 				<dataType>text</dataType>
 				<label translate="true">Winning Number</label>
 				<dataScope>winning_number</dataScope>
-				<disabled>true</disabled>
 				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
 				</validation>
 			</settings>
 		</field>
-
-
+		<field formElement="input" name="card_number" sortOrder="40">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Prize</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Card Number</label>
+				<dataScope>card_number</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+				</validation>
+			</settings>
+		</field>
 		<field name="card" formElement="select">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
@@ -67,6 +111,9 @@
 				<dataType>number</dataType>
 				<label translate="true">Card</label>
 				<dataScope>card</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+				</validation>
 			</settings>
 			<formElements>
 				<select>
@@ -76,8 +123,6 @@
 				</select>
 			</formElements>
 		</field>
-
-
 		<field formElement="input" name="prize" sortOrder="140">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
@@ -89,7 +134,7 @@
 				<label translate="true">prize</label>
 				<dataScope>prize</dataScope>
 				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
 				</validation>
 			</settings>
 		</field>

@@ -111,33 +111,74 @@ class TicketManagement
     }
 
     /**
-     * @param Product $product
+     * @param Prize $prize
      * @return \Angel\QoH\Model\Data\Ticket|\Angel\QoH\Model\Ticket Ticket
      * @throws \Exception
      */
-    public function drawTicket($product){
-        $processingTicket = $this->getProcessingTicket($product->getId());
-        $start = $processingTicket->getFirstItem()->getStart();
-        $end = $processingTicket->getLastItem()->getEnd();
-        $winningNumber = mt_rand($start, $end);
+    public function winningTickets($prize){
+        $processingTicket = $this->getProcessingTicket($prize->getProductId());
 
         /** @var \Angel\QoH\Model\Ticket $ticket */
         foreach ($processingTicket as $ticket){
-            if ($ticket->getStart() <= $winningNumber && $winningNumber <= $ticket->getEnd()){
-                $ticket->setWinningNumber($winningNumber);
+            if ($ticket->getStart() <= $prize->getWinningNumber() && $prize->getWinningNumber() <= $ticket->getEnd()){
+                $ticket->setWinningNumber($prize->getWinningNumber());
                 $ticket->setStatus(Status::STATUS_WINNING);
                 $this->ticketRepository->save($ticket->getDataModel());
-                $winningTicket = $ticket;
             } else {
                 $ticket->setStatus(Status::STATUS_LOSE);
                 $this->ticketRepository->save($ticket->getDataModel());
             }
         }
 
-        if (isset($winningTicket)){
-            return $winningTicket;
+        /** @var Collection $collection */
+        $collection = $this->collectionFactory->create();
+        $collection->addFieldToFilter('product_id', $prize->getProductId())
+            ->addFieldToFilter('status', ['in' => [Status::STATUS_WINNING]])
+            ->setCurPage(1)
+            ->setPageSize(1);
+        if ($collection->getSize()){
+            return $collection->getFirstItem();
         } else {
             throw new \Exception(__('There are not winning Ticket'));
+        }
+    }
+
+    /**
+     * @param Prize $prize
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function cancelTickets($prize){
+        /** @var Collection $collection */
+        $collection = $this->collectionFactory->create();
+        $collection->addFieldToFilter('product_id', $prize->getProductId())
+            ->addFieldToFilter('status', ['in' => [Status::STATUS_CANCELED, Status::STATUS_WAITING, Status::STATUS_LOSE, Status::STATUS_WINNING]]);
+        /** @var \Angel\QoH\Model\Ticket $ticket */
+        foreach ($collection as $ticket){
+            if ($ticket->getStart() <= $prize->getWinningNumber() && $prize->getWinningNumber() <= $ticket->getEnd()){
+                if ($ticket->getStatus() != Status::STATUS_CANCELED) {
+                    $ticket->setWinningNumber($prize->getWinningNumber());
+                    $ticket->setStatus(Status::STATUS_CANCELED);
+                    $this->ticketRepository->save($ticket->getDataModel());
+                }
+            } else {
+                if ($ticket->getStatus() != Status::STATUS_LOSE) {
+                    $ticket->setStatus(Status::STATUS_LOSE);
+                    $this->ticketRepository->save($ticket->getDataModel());
+                }
+            }
+        }
+    }
+
+    /**
+     * @param Product $product
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function waittingTickets($product){
+        $processingTicket = $this->getProcessingTicket($product->getId());
+        /** @var \Angel\QoH\Model\Ticket $ticket */
+        foreach ($processingTicket as $ticket){
+            $ticket->setStatus(Status::STATUS_WAITING);
+            $this->ticketRepository->save($ticket->getDataModel());
         }
     }
 }

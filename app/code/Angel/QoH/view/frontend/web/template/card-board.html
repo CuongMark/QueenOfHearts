@@ -1,0 +1,7 @@
+<ul class="field card_board">
+    <!-- ko foreach: { data: cards, as: 'img' } -->
+    <li class="card">
+        <img data-bind="attr:{'src': $parent.getImageUrl(img)}">
+    </li>
+    <!-- /ko -->
+</ul>

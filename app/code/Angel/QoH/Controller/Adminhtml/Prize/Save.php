@@ -3,12 +3,17 @@
 
 namespace Angel\QoH\Controller\Adminhtml\Prize;
 
+use Angel\QoH\Model\Prize;
+use Angel\QoH\Model\Prize\Status;
+use Angel\QoH\Model\TicketManagement;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Payment\Gateway\Http\Client\Zend;
 
 class Save extends \Magento\Backend\App\Action
 {
 
     protected $dataPersistor;
+    private $ticketManagement;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
@@ -16,10 +21,12 @@ class Save extends \Magento\Backend\App\Action
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor
+        \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor,
+        TicketManagement $ticketManagement
     ) {
         $this->dataPersistor = $dataPersistor;
         parent::__construct($context);
+        $this->ticketManagement = $ticketManagement;
     }
 
     /**
@@ -34,7 +41,8 @@ class Save extends \Magento\Backend\App\Action
         $data = $this->getRequest()->getPostValue();
         if ($data) {
             $id = $this->getRequest()->getParam('prize_id');
-        
+
+            /** @var Prize $model */
             $model = $this->_objectManager->create(\Angel\QoH\Model\Prize::class)->load($id);
             if (!$model->getId() && $id) {
                 $this->messageManager->addErrorMessage(__('This Prize no longer exists.'));
@@ -44,6 +52,12 @@ class Save extends \Magento\Backend\App\Action
             $model->setData($data);
         
             try {
+                if ($model->getStatus() == Status::STATUS_PROCESSING || $model->getStatus() == Status::STATUS_PAID){
+                    $this->ticketManagement->winningTickets($model);
+                } elseif ($model->getStatus() == Status::STATUS_CANCELED) {
+                    $this->ticketManagement->cancelTickets($model);
+                }
+
                 $model->save();
                 $this->messageManager->addSuccessMessage(__('You saved the Prize.'));
                 $this->dataPersistor->clear('angel_qoh_prize');

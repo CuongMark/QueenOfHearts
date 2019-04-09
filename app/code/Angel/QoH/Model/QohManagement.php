@@ -78,8 +78,8 @@ class QohManagement
                     if ($now < $start_at){
                         $this->productRepository->save($product->setQohStatus(Status::NOT_START));
                     } elseif ($now > $finish_at){
-                        $winningTicket = $this->ticketManagement->drawTicket($product);
-                        $prize = $this->prizeManagement->createPrize($product, $winningTicket);
+                        $this->ticketManagement->waittingTickets($product);
+                        $this->prizeManagement->createPrize($product);
                         $this->productRepository->save($product->setQohStatus(Status::WAITING));
                     }
                 }
@@ -87,10 +87,6 @@ class QohManagement
             }
         } catch (\Exception $e){
             $product->getResource()->rollBack();
-        }
-
-        if (isset($winningTicket)){
-            //Todo send Winning Email
         }
     }
 

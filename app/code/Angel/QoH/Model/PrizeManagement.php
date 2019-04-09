@@ -28,19 +28,18 @@ class PrizeManagement
 
     /**
      * @param Product $product
-     * @param Ticket $ticket
      * @return PrizeDataModel
      * @throws LocalizedException
      */
-    public function createPrize($product, $ticket){
+    public function createPrize($product){
         $this->prizeData->setProductId($product->getId())
             ->setStartAt($product->getQohStartAt())
             ->setEndAt($product->getQohFinishAt())
-            ->setWinningNumber($ticket->getWinningNumber())
+            ->setWinningNumber(0)
             ->setPrize(0)
             ->setCard(0)
-            ->setCardNumber($ticket->getCardNumber())
-            ->setTicketId($ticket->getId())
+            ->setCardNumber(0)
+            ->setTicketId(0)
             ->setTransaction('')
             ->setStatus(Status::STATUS_PENDING);
         return $this->prizeRepository->save($this->prizeData);
@@ -59,6 +58,7 @@ class PrizeManagement
      */
     public function getTotalPrize($productId){
         $collection = $this->getPrizes($productId);
+        $collection->addFieldToFilter('status', ['neq' => Status::STATUS_CANCELED]);
         $collection->getSelect()->columns(['total_prize' => 'SUM(prize)']);
         $lastItem = $collection->setPageSize(1)
             ->setCurPage(1)
@@ -77,6 +77,7 @@ class PrizeManagement
         /** @var Collection $collection */
         $collection = $this->collectionFactory->create();
         $collection->addFieldToSelect(['product_id']);
+        $collection->addFieldToFilter('status', ['neq' => Status::STATUS_CANCELED]);
         $collection->getSelect()
             ->columns(['total_prize' => 'SUM(main_table.prize)'])
             ->group('main_table.product_id');

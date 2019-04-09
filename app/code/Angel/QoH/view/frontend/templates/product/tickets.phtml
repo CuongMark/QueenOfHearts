@@ -14,3 +14,20 @@
         }
     </script>
 </div>
+
+<div id="cardBoard" data-bind="scope:'cardBoard'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#cardBoard": {
+                "Magento_Ui/js/core/app": {
+                    "components" : {
+                        "cardBoard" : {
+                            "component": "Angel_QoH/js/view/card-board"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</div>
