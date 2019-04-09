@@ -37,7 +37,7 @@ class Index extends \Magento\Framework\App\Action\Action
         $this->qohManagement->massUpdateStatus();
         $page = $this->resultPageFactory->create();
         $page->getConfig()->addBodyClass('page-products');
-        $page->getConfig()->getTitle()->prepend(__('50-50 Processing Raffle Products'));
+        $page->getConfig()->getTitle()->prepend(__('Queen of Hearts Tickets'));
         return $page;
     }
 }
