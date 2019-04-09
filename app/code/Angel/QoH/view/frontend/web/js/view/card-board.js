@@ -49,7 +49,7 @@ define([
                     var card = 0;
                     prizes.forEach(function (el) {
                         if (el.card_number == i){
-                            cards.push(self.cardsImages[i]);
+                            cards.push(self.cardsImages[i-1]);
                         }
                     });
                     cards.push('back-card.png');
