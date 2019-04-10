@@ -45,6 +45,10 @@ class PrizeManagement
         return $this->prizeRepository->save($this->prizeData);
     }
 
+    /**
+     * @param int $productId
+     * @return Collection
+     */
     public function getPrizes($productId){
         /** @var Collection $collection */
         $collection = $this->collectionFactory->create();
@@ -97,4 +101,16 @@ class PrizeManagement
         return $productCollection;
     }
 
+    /**
+     * @param int $productId
+     * @return array
+     */
+    public function getDrawnCards($productId){
+        $prizes = $this->getPrizes($productId);
+        $cards = [];
+        foreach ($prizes as $prize){
+            $cards[] = $prize->getCard();
+        }
+        return $cards;
+    }
 }

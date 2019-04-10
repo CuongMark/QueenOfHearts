@@ -3,7 +3,7 @@
 	<update handle="styles"/>
 	<body>
 		<referenceContainer name="content">
-			<uiComponent name="angel_qoh_ticket_form"/>
+			<uiComponent name="angel_qoh_ticket_form_edit"/>
 		</referenceContainer>
 	</body>
 </page>

@@ -4,6 +4,7 @@
 namespace Angel\QoH\Model\Ticket;
 
 use Angel\QoH\Model\ResourceModel\Ticket\CollectionFactory;
+use Magento\Customer\Model\ResourceModel\CustomerRepository;
 use Magento\Framework\App\Request\DataPersistorInterface;
 
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
@@ -14,6 +15,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     protected $collection;
 
     protected $loadedData;
+    private $customerRepository;
 
     /**
      * Constructor
@@ -32,11 +34,13 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         $requestFieldName,
         CollectionFactory $collectionFactory,
         DataPersistorInterface $dataPersistor,
+        CustomerRepository $customerRepository,
         array $meta = [],
         array $data = []
     ) {
         $this->collection = $collectionFactory->create();
         $this->dataPersistor = $dataPersistor;
+        $this->customerRepository = $customerRepository;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
@@ -52,6 +56,10 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         }
         $items = $this->collection->getItems();
         foreach ($items as $model) {
+            if ($model->getCustomerId()){
+                $customer = $this->customerRepository->getById($model->getCustomerId());
+                $model->setCustomerEmail($customer->getEmail());
+            }
             $this->loadedData[$model->getId()] = $model->getData();
         }
         $data = $this->dataPersistor->get('angel_qoh_ticket');

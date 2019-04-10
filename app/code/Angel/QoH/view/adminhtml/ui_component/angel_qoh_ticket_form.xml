@@ -10,7 +10,7 @@
 	<settings>
 		<buttons>
 			<button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\BackButton" name="back"/>
-			<button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\DeleteButton" name="delete"/>
+			<!--<button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\DeleteButton" name="delete"/>-->
 			<button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\SaveButton" name="save"/>
 			<button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\SaveAndContinueButton" name="save_and_continue"/>
 		</buttons>
@@ -152,7 +152,7 @@
 			<formElements>
 				<select>
 					<settings>
-						<options class="Angel\QoH\Model\Ticket\Status"/>
+						<options class="Angel\QoH\Model\Ticket\NewTicketStatus"/>
 					</settings>
 				</select>
 			</formElements>

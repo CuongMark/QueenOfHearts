@@ -16,6 +16,11 @@
 				<class>primary</class>
 				<label translate="true">Add new Ticket</label>
 			</button>
+			<button name="import">
+				<url path="*/*/import"/>
+				<class>primary</class>
+				<label translate="true">Import Tickets</label>
+			</button>
 		</buttons>
 	</settings>
 	<dataSource component="Magento_Ui/js/grid/provider" name="angel_qoh_ticket_listing_data_source">
