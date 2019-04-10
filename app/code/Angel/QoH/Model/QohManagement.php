@@ -99,4 +99,32 @@ class QohManagement
             $this->updateStatus($product);
         }
     }
+
+    /**
+     * @param \Angel\QoH\Model\ResourceModel\Prize\Collection | \Angel\QoH\Model\ResourceModel\Ticket\Collection $collection
+     * @return \Angel\QoH\Model\ResourceModel\Prize\Collection | \Angel\QoH\Model\ResourceModel\Ticket\Collection
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function joinProductName($collection){
+        $productCollection = $this->productCollectionFactory->create()
+            ->addAttributeToSelect(['name']);
+        $productCollection->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
+        $collection->getSelect()->joinLeft(['product' => new \Zend_Db_Expr('('.$productCollection->getSelect()->__toString().')')],
+            "product.entity_id = main_table.product_id",
+            ['product_name' => 'product.name']
+        );
+        return $collection;
+    }
+
+    /**
+     * @param \Angel\QoH\Model\ResourceModel\Ticket\Collection $collection
+     * @return \Angel\QoH\Model\ResourceModel\Ticket\Collection
+     */
+    public function joinCustomerEmail($collection){
+        $collection->getSelect()->joinLeft(['customer' => $collection->getTable('customer_entity')],
+            'customer.entity_id = main_table.customer_id',
+            ['customer_email' => 'customer.email']
+        );
+        return $collection;
+    }
 }

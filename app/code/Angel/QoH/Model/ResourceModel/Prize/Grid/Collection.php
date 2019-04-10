@@ -6,6 +6,7 @@
 namespace Angel\QoH\Model\ResourceModel\Prize\Grid;
 
 use Angel\QoH\Model\PrizeManagement;
+use Angel\QoH\Model\QohManagement;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Data\Collection\Db\FetchStrategyInterface as FetchStrategy;
 use Magento\Framework\Data\Collection\EntityFactoryInterface as EntityFactory;
@@ -22,6 +23,7 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
      */
     private $request;
     private $ticketManagement;
+    private $qohManagement;
 
     /**
      * Collection constructor.
@@ -42,11 +44,13 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
         EventManager $eventManager,
         RequestInterface $request,
         PrizeManagement $ticketManagement,
+        QohManagement $qohManagement,
         $mainTable = 'angel_qoh_prize',
         $resourceModel = \Angel\QoH\Model\ResourceModel\Prize::class
     ) {
         $this->request = $request;
         $this->ticketManagement = $ticketManagement;
+        $this->qohManagement = $qohManagement;
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $mainTable, $resourceModel);
     }
 
@@ -59,11 +63,13 @@ class Collection extends \Magento\Framework\View\Element\UiComponent\DataProvide
     {
         parent::_initSelect();
         $this->_addFilters();
+        $this->_joinFields();
         return $this;
     }
 
     protected function _joinFields()
     {
+        $this->qohManagement->joinProductName($this);
     }
 
     protected function _addFilters()

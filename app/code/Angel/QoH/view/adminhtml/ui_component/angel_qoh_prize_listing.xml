@@ -45,7 +45,7 @@
 				<label translate="true">ID</label>
 			</settings>
 		</column>
-		<column name="product_id">
+		<column name="product_name">
 			<settings>
 				<filter>text</filter>
 				<label translate="true">Product Name</label>

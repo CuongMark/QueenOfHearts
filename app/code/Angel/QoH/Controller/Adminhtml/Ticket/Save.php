@@ -3,12 +3,16 @@
 
 namespace Angel\QoH\Controller\Adminhtml\Ticket;
 
+use Angel\QoH\Model\PurchaseManagement;
+use Magento\Customer\Model\ResourceModel\CustomerRepository;
 use Magento\Framework\Exception\LocalizedException;
 
 class Save extends \Magento\Backend\App\Action
 {
 
     protected $dataPersistor;
+    private $customerRepository;
+    private $purchaseManagement;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
@@ -16,9 +20,13 @@ class Save extends \Magento\Backend\App\Action
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor
+        \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor,
+        CustomerRepository $customerRepository,
+        PurchaseManagement $purchaseManagement
     ) {
         $this->dataPersistor = $dataPersistor;
+        $this->customerRepository = $customerRepository;
+        $this->purchaseManagement = $purchaseManagement;
         parent::__construct($context);
     }
 
@@ -40,25 +48,47 @@ class Save extends \Magento\Backend\App\Action
                 $this->messageManager->addErrorMessage(__('This Ticket no longer exists.'));
                 return $resultRedirect->setPath('*/*/');
             }
-        
-            $model->setData($data);
-        
-            try {
-                $model->save();
-                $this->messageManager->addSuccessMessage(__('You saved the Ticket.'));
-                $this->dataPersistor->clear('angel_qoh_ticket');
-        
-                if ($this->getRequest()->getParam('back')) {
-                    return $resultRedirect->setPath('*/*/edit', ['ticket_id' => $model->getId()]);
+
+            if (!$id){
+                $email = $this->getRequest()->getParam('customer_email');
+                $product_id = $this->getRequest()->getParam('product_id');
+                $qty = $this->getRequest()->getParam('qty');
+                $card_number = $this->getRequest()->getParam('card_number');
+                $customer = $this->customerRepository->get($email);
+
+                try {
+                    $this->purchaseManagement->postPurchase($product_id, $qty, $card_number, $customer->getId());
+
+                    $this->messageManager->addSuccessMessage(__('You saved the Ticket.'));
+
+                    $this->dataPersistor->clear('angel_qoh_ticket');
+                    if ($this->getRequest()->getParam('back')) {
+                        return $resultRedirect->setPath('*/*/edit', ['ticket_id' => $model->getId()]);
+                    }
+                    return $resultRedirect->setPath('*/*/');
+                } catch (\Exception $e){
+                    $this->messageManager->addErrorMessage($e->getMessage());
                 }
-                return $resultRedirect->setPath('*/*/');
-            } catch (LocalizedException $e) {
-                $this->messageManager->addErrorMessage($e->getMessage());
-            } catch (\Exception $e) {
-                $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the Ticket.'));
+
+            } else {
+                $model->setData($data);
+                try {
+                    $model->save();
+                    $this->messageManager->addSuccessMessage(__('You saved the Ticket.'));
+                    $this->dataPersistor->clear('angel_qoh_ticket');
+
+                    if ($this->getRequest()->getParam('back')) {
+                        return $resultRedirect->setPath('*/*/edit', ['ticket_id' => $model->getId()]);
+                    }
+                    return $resultRedirect->setPath('*/*/');
+                } catch (LocalizedException $e) {
+                    $this->messageManager->addErrorMessage($e->getMessage());
+                } catch (\Exception $e) {
+                    $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the Ticket.'));
+                }
+
+                $this->dataPersistor->set('angel_qoh_ticket', $data);
             }
-        
-            $this->dataPersistor->set('angel_qoh_ticket', $data);
             return $resultRedirect->setPath('*/*/edit', ['ticket_id' => $this->getRequest()->getParam('ticket_id')]);
         }
         return $resultRedirect->setPath('*/*/');

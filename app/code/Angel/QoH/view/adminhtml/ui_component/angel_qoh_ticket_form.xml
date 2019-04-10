@@ -40,7 +40,7 @@
 		<settings>
 			<label/>
 		</settings>
-		<field formElement="input" name="product_id" sortOrder="10">
+		<field formElement="select" name="product_id" sortOrder="10">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="source" xsi:type="string">Ticket</item>
@@ -48,14 +48,22 @@
 			</argument>
 			<settings>
 				<dataType>text</dataType>
-				<label translate="true">product_id</label>
+				<label translate="true">Queen of Hearts Product</label>
 				<dataScope>product_id</dataScope>
 				<validation>
 					<rule name="required-entry" xsi:type="boolean">true</rule>
 				</validation>
 			</settings>
+			<formElements>
+				<select>
+					<settings>
+						<options class="Angel\QoH\Model\Product\SelectProducts"/>
+					</settings>
+				</select>
+			</formElements>
 		</field>
-		<field formElement="input" name="customer_id" sortOrder="20">
+
+		<field formElement="input" name="customer_email" sortOrder="20">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="source" xsi:type="string">Ticket</item>
@@ -63,14 +71,15 @@
 			</argument>
 			<settings>
 				<dataType>text</dataType>
-				<label translate="true">customer_id</label>
-				<dataScope>customer_id</dataScope>
+				<label translate="true">Customer Email</label>
+				<dataScope>customer_email</dataScope>
 				<validation>
 					<rule name="required-entry" xsi:type="boolean">true</rule>
 				</validation>
 			</settings>
 		</field>
-		<field formElement="input" name="start" sortOrder="30">
+
+		<field formElement="input" name="qty" sortOrder="30">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="source" xsi:type="string">Ticket</item>
@@ -78,14 +87,16 @@
 			</argument>
 			<settings>
 				<dataType>text</dataType>
-				<label translate="true">start</label>
-				<dataScope>start</dataScope>
+				<label translate="true">Qty</label>
+				<dataScope>qty</dataScope>
 				<validation>
 					<rule name="required-entry" xsi:type="boolean">true</rule>
 				</validation>
 			</settings>
 		</field>
-		<field formElement="input" name="end" sortOrder="40">
+
+
+		<field formElement="input" name="card_number" sortOrder="40">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="source" xsi:type="string">Ticket</item>
@@ -93,44 +104,38 @@
 			</argument>
 			<settings>
 				<dataType>text</dataType>
-				<label translate="true">end</label>
-				<dataScope>end</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">true</rule>
-				</validation>
-			</settings>
-		</field>
-		<field formElement="input" name="price" sortOrder="50">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Ticket</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">price</label>
-				<dataScope>price</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">true</rule>
-				</validation>
-			</settings>
-		</field>
-		<field formElement="input" name="card_number" sortOrder="80">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">Ticket</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">card_number</label>
+				<label translate="true">Card Number</label>
 				<dataScope>card_number</dataScope>
 				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
 				</validation>
 			</settings>
+			<!--<formElements>-->
+				<!--<select>-->
+					<!--<settings>-->
+						<!--<options class="Angel\QoH\Model\Product\CardNumbers"/>-->
+					<!--</settings>-->
+				<!--</select>-->
+			<!--</formElements>-->
 		</field>
-		<field formElement="input" name="status" sortOrder="90">
+
+		<!--<field formElement="input" name="price" sortOrder="50">-->
+			<!--<argument name="data" xsi:type="array">-->
+				<!--<item name="config" xsi:type="array">-->
+					<!--<item name="source" xsi:type="string">Ticket</item>-->
+				<!--</item>-->
+			<!--</argument>-->
+			<!--<settings>-->
+				<!--<dataType>text</dataType>-->
+				<!--<label translate="true">Ticket Price</label>-->
+				<!--<dataScope>price</dataScope>-->
+				<!--<validation>-->
+					<!--<rule name="required-entry" xsi:type="boolean">false</rule>-->
+				<!--</validation>-->
+			<!--</settings>-->
+		<!--</field>-->
+
+		<field formElement="select" name="status" sortOrder="90">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="source" xsi:type="string">Ticket</item>
@@ -138,12 +143,19 @@
 			</argument>
 			<settings>
 				<dataType>text</dataType>
-				<label translate="true">status</label>
+				<label translate="true">Status</label>
 				<dataScope>status</dataScope>
 				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
 				</validation>
 			</settings>
+			<formElements>
+				<select>
+					<settings>
+						<options class="Angel\QoH\Model\Ticket\Status"/>
+					</settings>
+				</select>
+			</formElements>
 		</field>
 	</fieldset>
 </form>

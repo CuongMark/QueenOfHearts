@@ -12,7 +12,7 @@
       <paths name="27">
         <serverdata>
           <mappings>
-            <mapping deploy="/qoh/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/qoh" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
