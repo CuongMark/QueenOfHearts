@@ -4,13 +4,14 @@
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">angel_qoh_ticket_form_edit.ticket_form_data_source</item>
         </item>
-        <item name="label" translate="true" xsi:type="string">General Information</item>
+        <item name="label" translate="true" xsi:type="string">Ticket Information</item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
     </argument>
     <settings>
         <buttons>
             <button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\BackButton" name="back"/>
             <!--<button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\DeleteButton" name="delete"/>-->
+            <button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\PrintButton" name="print"/>
             <button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\SaveButton" name="save"/>
             <button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\SaveAndContinueButton" name="save_and_continue"/>
         </buttons>

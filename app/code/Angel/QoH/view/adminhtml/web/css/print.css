@@ -1,0 +1,24 @@
+ul#tickets_print .ticket span {
+    display: block;
+}
+
+li.ticket {
+    text-align: center;
+    width: 200px;
+    display: inline-block;
+    border: solid #707171;
+    padding: 5px;
+    height: 85px;
+}
+
+ul#tickets_print {
+    list-style: none;
+}
+span.ticket-number {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#tickets_to_print_box{
+    display: none;
+}

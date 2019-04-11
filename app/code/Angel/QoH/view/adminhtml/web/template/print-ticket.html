@@ -1,0 +1,38 @@
+<div id="tickets_to_print_box">
+    <ul id="tickets_print">
+    <!-- ko foreach: { data: printTickets(), as: 'ticket'}  -->
+        <li class="ticket">
+            <span class="product_sku" data-bind="text: ticket.sku"></span>
+            <span class="ticket-number" data-bind="text: ticket.ticket_number"></span>
+            <span class="card-number" data-bind="text: 'Card Number: '+ticket.card_number"></span>
+            <span class="customer-email" data-bind="text: ticket.email"></span>
+        </li>
+    <!--/ko-->
+    </ul>
+    <style>
+        ul#tickets_print .ticket span {
+            display: block;
+        }
+
+        li.ticket {
+            text-align: center;
+            width: 200px;
+            display: inline-block;
+            border: solid #707171;
+            padding: 5px;
+            height: 85px;
+        }
+
+        ul#tickets_print {
+            list-style: none;
+        }
+        span.ticket-number {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #tickets_to_print_box{
+            display: none;
+        }
+    </style>
+</div>
