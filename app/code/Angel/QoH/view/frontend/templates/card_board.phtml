@@ -1,0 +1,89 @@
+<?php
+/**
+ * @var $block \Angel\QoH\Block\CardBoard
+ */
+?>
+<?php if ($block->getProduct()): ?>
+    <h1><?= $block->getProduct()->getName() ?></h1>
+    <h3><?= __('JackPot') ?>: <?= $block->formatPrice($block->getJackPot()) ?></h3>
+
+    <?php $date = new \DateTime(); ?>
+    <?php $finish_at = new \DateTime($block->getProduct()->getQohFinishAt()); ?>
+    <div data-mage-init='{"qohCountdown": {"time_left":<?= $finish_at->getTimestamp() - $date->getTimestamp() ?>}}'></div>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "Angel_QoH/js/cardBoard": {
+                    "jackPot" : "<?= $block->getJackPot() ?>",
+                    "prizes" : <?= json_encode($block->getPrizes()) ?>
+                }
+            }
+        }
+    </script>
+    <div id="cardBoard" data-bind="scope:'cardBoard'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <script type="text/x-magento-init">
+            {
+                "#cardBoard": {
+                    "Magento_Ui/js/core/app": {
+                        "components" : {
+                            "cardBoard" : {
+                                "component": "Angel_QoH/js/view/card-board"
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+    </div>
+<?php endif; ?>
+<style>
+    .card {
+        width: 14%;
+        display: inline-block;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .card_select {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .drawed {
+        cursor: default;
+        pointer-events: none;
+        color: dimgray;
+    }
+
+    #cardBoard{
+        clear: both;
+    }
+
+    .drawed span{
+        opacity: 0;
+    }
+
+    .card_board{
+        padding-left: 0;
+    }
+
+    .countdown_row {
+        clear: both;
+        width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+    .countdown_section {
+        display: inline-block;
+        font-size: 75%;
+    }
+    .countdown_show4 .countdown_section {
+        width: 24%;
+        background: lightblue;
+        margin-left: 0.5%;
+        margin-bottom: 1em;
+    }
+    .countdown_amount {
+        font-size: 200%;
+    }
+</style>
