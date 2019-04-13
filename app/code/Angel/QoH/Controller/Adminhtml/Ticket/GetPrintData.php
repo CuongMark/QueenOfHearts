@@ -4,9 +4,12 @@
 namespace Angel\QoH\Controller\Adminhtml\Ticket;
 
 use Angel\QoH\Model\ResourceModel\Ticket\Collection;
+use Angel\QoH\Model\Ticket;
 use Angel\QoH\Model\Ticket\Status;
+use Angel\QoH\Model\TicketRepository;
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Customer\Model\ResourceModel\CustomerRepository;
+use Magento\Payment\Gateway\Http\Client\Zend;
 
 class GetPrintData extends \Magento\Backend\App\Action
 {
@@ -16,6 +19,7 @@ class GetPrintData extends \Magento\Backend\App\Action
     private $collection;
     private $customerRepository;
     private $productRepository;
+    private $ticketRepository;
 
     /**
      * Constructor
@@ -29,13 +33,15 @@ class GetPrintData extends \Magento\Backend\App\Action
         \Magento\Framework\Json\Helper\Data $jsonHelper,
         Collection $collection,
         CustomerRepository $customerRepository,
-        ProductRepository $productRepository
+        ProductRepository $productRepository,
+        TicketRepository $ticketRepository
     ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->jsonHelper = $jsonHelper;
         $this->collection = $collection;
         $this->customerRepository = $customerRepository;
         $this->productRepository = $productRepository;
+        $this->ticketRepository = $ticketRepository;
         parent::__construct($context);
     }
 
@@ -75,6 +81,9 @@ class GetPrintData extends \Magento\Backend\App\Action
             $this->collection->addFieldToFilter('ticket_id', ['in', $ticketIds]);
         }
         $ticketsData = [];
+        $status = $this->getRequest()->getParam('status');
+
+        /** @var Ticket $ticket */
         foreach ($this->collection as $ticket){
             $customer = $this->customerRepository->getById($ticket->getCustomerId());
             $product = $this->productRepository->getById($ticket->getProductId());
@@ -86,6 +95,10 @@ class GetPrintData extends \Magento\Backend\App\Action
                 'customer_email' => $customer->getEmail()
             ];
             $ticketsData[] = $data;
+            if (in_array($status, [Status::STATUS_PAID, Status::STATUS_WAITING, Status::STATUS_PRINTED]) && $ticket->getStatus() != $status){
+                $ticket->setStatus($status);
+                $this->ticketRepository->save($ticket->getDataModel());
+            }
         }
         return $ticketsData;
     }

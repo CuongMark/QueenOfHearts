@@ -93,7 +93,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
     /**
      * {@inheritdoc}
      */
-    public function postPurchaseAdmin($product_id, $qty, $cardNumber, $customerId, $customPrice = null)
+    public function postPurchaseAdmin($product_id, $qty, $cardNumber, $customerId, $status, $customPrice = null)
     {
         try {
             $this->ticket->getResource()->beginTransaction();
@@ -119,7 +119,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
                 ->setCustomerId($customerId)
                 ->setProductId($product_id)
                 ->setCardNumber($cardNumber)
-                ->setStatus(Status::STATUS_PENDING)
+                ->setStatus($status)
                 ->setSerial($this->generateSerial());
             $ticketData = $this->ticketRepository->save($this->ticketDataModel);
 

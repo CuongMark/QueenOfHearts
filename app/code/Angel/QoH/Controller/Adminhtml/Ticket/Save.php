@@ -58,10 +58,11 @@ class Save extends \Magento\Backend\App\Action
                 $product_id = $this->getRequest()->getParam('product_id');
                 $qty = $this->getRequest()->getParam('qty');
                 $card_number = $this->getRequest()->getParam('card_number');
+                $status = $this->getRequest()->getParam('card_number');
 
                 try {
                     $customer = $this->customerManagement->getOrCreateCustomerByEmail($email);
-                    $ticket = $this->purchaseManagement->postPurchaseAdmin($product_id, $qty, $card_number, $customer->getId());
+                    $ticket = $this->purchaseManagement->postPurchaseAdmin($product_id, $qty, $card_number, $customer->getId(), $status);
 
                     $this->dataPersistor->clear('angel_qoh_ticket');
                     if ($this->getRequest()->getParam('back')) {
