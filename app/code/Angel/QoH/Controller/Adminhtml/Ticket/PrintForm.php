@@ -3,7 +3,7 @@
 
 namespace Angel\QoH\Controller\Adminhtml\Ticket;
 
-class Index extends \Magento\Backend\App\Action
+class PrintForm extends \Magento\Backend\App\Action
 {
 
     protected $resultPageFactory;
@@ -30,7 +30,7 @@ class Index extends \Magento\Backend\App\Action
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__("Print Ticket"));
+        $resultPage->getConfig()->getTitle()->prepend(__("Print Tickets"));
         return $resultPage;
     }
 }

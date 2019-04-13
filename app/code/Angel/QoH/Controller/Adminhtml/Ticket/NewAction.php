@@ -6,7 +6,7 @@ namespace Angel\QoH\Controller\Adminhtml\Ticket;
 class NewAction extends \Angel\QoH\Controller\Adminhtml\Ticket
 {
 
-    protected $resultForwardFactory;
+    protected $resultPageFactory;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
@@ -16,9 +16,9 @@ class NewAction extends \Angel\QoH\Controller\Adminhtml\Ticket
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
-        \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
+        \Magento\Framework\View\Result\PageFactory $resultPageFactory
     ) {
-        $this->resultForwardFactory = $resultForwardFactory;
+        $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context, $coreRegistry);
     }
 
@@ -29,8 +29,31 @@ class NewAction extends \Angel\QoH\Controller\Adminhtml\Ticket
      */
     public function execute()
     {
-        /** @var \Magento\Framework\Controller\Result\Forward $resultForward */
-        $resultForward = $this->resultForwardFactory->create();
-        return $resultForward->forward('edit');
+        // 1. Get ID and create model
+        $id = $this->getRequest()->getParam('ticket_id');
+        $model = $this->_objectManager->create(\Angel\QoH\Model\Ticket::class);
+
+        // 2. Initial checking
+        if ($id) {
+            $model->load($id);
+            if (!$model->getId()) {
+                $this->messageManager->addErrorMessage(__('This Ticket no longer exists.'));
+                /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+                $resultRedirect = $this->resultRedirectFactory->create();
+                return $resultRedirect->setPath('*/*/');
+            }
+        }
+        $this->_coreRegistry->register('angel_qoh_ticket', $model);
+
+        // 3. Build edit form
+        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
+        $resultPage = $this->resultPageFactory->create();
+        $this->initPage($resultPage)->addBreadcrumb(
+            $id ? __('Edit Ticket') : __('New Ticket'),
+            $id ? __('Edit Ticket') : __('New Ticket')
+        );
+        $resultPage->getConfig()->getTitle()->prepend(__('Tickets'));
+        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? __('Edit Ticket %1', $model->getId()) : __('New Ticket'));
+        return $resultPage;
     }
 }

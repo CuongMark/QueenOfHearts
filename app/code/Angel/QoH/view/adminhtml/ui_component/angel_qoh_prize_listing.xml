@@ -57,6 +57,12 @@
 				<label translate="true">Winning Number</label>
 			</settings>
 		</column>
+		<column name="card_number">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Card Number</label>
+			</settings>
+		</column>
 		<column name="card" component="Magento_Ui/js/grid/columns/select">
 			<settings>
 				<options class="Angel\QoH\Model\Card\Options"/>

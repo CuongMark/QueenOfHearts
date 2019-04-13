@@ -21,6 +21,7 @@ class Status extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     const STATUS_CANCELED = 4;
     const STATUS_TRANSFERED = 5;
     const STATUS_WAITING = 6;
+    const STATUS_PRINTED = 7;
     /**
      * getAllOptions
      *
@@ -33,9 +34,10 @@ class Status extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             ['value' => self::STATUS_PAID, 'label' => __('Paid')],
             ['value' => self::STATUS_WINNING, 'label' => __('Winning')],
             ['value' => self::STATUS_LOSE, 'label' => __('Lose')],
-            ['value' => self::STATUS_TRANSFERED, 'label' => __('Transfered to credit')],
+//            ['value' => self::STATUS_TRANSFERED, 'label' => __('Transfered to credit')],
             ['value' => self::STATUS_CANCELED, 'label' => __('Canceled')],
             ['value' => self::STATUS_WAITING, 'label' => __('Waiting')],
+            ['value' => self::STATUS_PRINTED, 'label' => __('Printed')],
         ];
         return $this->_options;
     }
@@ -52,9 +54,10 @@ class Status extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             self::STATUS_PAID => __('Paid'),
             self::STATUS_WINNING => __('Winning'),
             self::STATUS_LOSE => __('Lose'),
-            self::STATUS_TRANSFERED => __('Transfered to credit'),
+//            self::STATUS_TRANSFERED => __('Transfered to credit'),
             self::STATUS_CANCELED => __('Canceled'),
             self::STATUS_WAITING => __('Waiting'),
+            self::STATUS_PRINTED => __('Printed'),
         );
     }
 

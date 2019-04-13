@@ -84,7 +84,8 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                                 <div class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $position : '' ?>>
                                     <?php if ($_product->isSaleable()): ?>
                                         <?php if (!$block->isLoggedIn()): ?>
-                                            <button type="submit"
+                                            <button type="button"
+                                                    onclick="window.location.href = '<?= /* @escapeNotVerified */ $block->getUrl('customer/account/login') ?>'"
                                                     data-role="purchase-ticket-button"
                                                     data-notLoggedIn = "1"
                                                     title="<?= $block->escapeHtml(__('Login To Purchase')) ?>"

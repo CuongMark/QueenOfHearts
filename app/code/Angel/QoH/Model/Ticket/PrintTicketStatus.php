@@ -11,7 +11,7 @@
 
 namespace Angel\QoH\Model\Ticket;
 
-class NewTicketStatus extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
+class PrintTicketStatus extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
 {
 
     /**
@@ -22,10 +22,8 @@ class NewTicketStatus extends \Magento\Eav\Model\Entity\Attribute\Source\Abstrac
     public function getAllOptions()
     {
         $this->_options = [
-            ['value' => Status::STATUS_PENDING, 'label' => __('Pending')],
-            ['value' => Status::STATUS_PAID, 'label' => __('Paid')],
+            ['value' => '', 'label' => __('Don\'t update')],
             ['value' => Status::STATUS_WAITING, 'label' => __('Waiting')],
-            ['value' => Status::STATUS_CANCELED, 'label' => __('Canceled')],
             ['value' => Status::STATUS_PRINTED, 'label' => __('Printed')],
         ];
         return $this->_options;
@@ -39,10 +37,8 @@ class NewTicketStatus extends \Magento\Eav\Model\Entity\Attribute\Source\Abstrac
     static public function getOptionArray()
     {
         return array(
-            Status::STATUS_PENDING => __('Pending'),
-            Status::STATUS_PAID => __('Paid'),
+            '' => __('Don\'t Update'),
             Status::STATUS_WAITING => __('Waiting'),
-            Status::STATUS_CANCELED => __('Canceled'),
             Status::STATUS_PRINTED => __('Printed'),
         );
     }

@@ -69,7 +69,8 @@ class Save extends \Magento\Backend\App\Action
             } catch (LocalizedException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\Exception $e) {
-                $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the Prize.'));
+                $this->messageManager->addErrorMessage($e->getMessage());
+//                $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the Prize.'));
             }
         
             $this->dataPersistor->set('angel_qoh_prize', $data);

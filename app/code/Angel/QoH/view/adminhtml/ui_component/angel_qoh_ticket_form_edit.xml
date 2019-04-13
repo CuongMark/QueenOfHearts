@@ -99,7 +99,7 @@
             </settings>
         </field>
 
-        <field formElement="input" name="end" sortOrder="30">
+        <field formElement="input" name="end" sortOrder="35">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">Ticket</item>

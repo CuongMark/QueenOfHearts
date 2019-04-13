@@ -109,7 +109,7 @@ class PrizeManagement
         $prizes = $this->getPrizes($productId);
         $cards = [];
         foreach ($prizes as $prize){
-            $cards[] = $prize->getCard();
+            $cards[] = $prize->getCardNumber();
         }
         return $cards;
     }

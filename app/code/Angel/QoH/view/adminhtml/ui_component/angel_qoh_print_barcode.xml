@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright © 2016 Magestore. All rights reserved.
+See COPYING.txt for license details.
+-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">angel_qoh_print_barcode.angel_qoh_print_barcode_data_source</item>
+            <item name="deps" xsi:type="string">angel_qoh_print_barcode.angel_qoh_print_barcode_data_source</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">angel_qoh_print_barcode</item>
+            <item name="ajaxSave" xsi:type="boolean">true</item>
+            <item name="ajaxSaveType" xsi:type="string">simple</item>
+            <item name="component" xsi:type="string">Magestore_BarcodeSuccess/js/form/component/print-barcode-form</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Angel\QoH\Block\Adminhtml\Ticket\Edit\BackButton</item>
+            <item name="print" xsi:type="string">Angel\QoH\Block\Adminhtml\Ticket\Edit\MassPrintButton</item>
+        </item>
+    </argument>
+    <dataSource name="angel_qoh_print_barcode_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magestore\BarcodeSuccess\Ui\DataProvider\PrintPage\Form\DataProvider</argument>
+            <argument name="name" xsi:type="string">angel_qoh_print_barcode_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">template_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="type_provider" xsi:type="string">form</item>
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="barcodesuccess/index/printBarcode"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magestore_BarcodeSuccess/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="barcode_template_information">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Barcode Print Configuration</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magestore\BarcodeSuccess\Model\Source\Template</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Select Barcode Template</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="preview">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string" translate="true">Preview</item>
+                    <item name="component" xsi:type="string">Magestore_BarcodeSuccess/js/form/element/barcode/print/preview</item>
+                    <item name="elementTmpl" xsi:type="string">Magestore_BarcodeSuccess/form/element/barcode/print/preview</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <insertListing name="barcode_print_listing">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="autoRender" xsi:type="string">true</item>
+                <item name="ns" xsi:type="string">os_barcode_print_listing</item>
+            </item>
+        </argument>
+    </insertListing>
+</form>

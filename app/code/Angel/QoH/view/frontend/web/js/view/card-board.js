@@ -26,7 +26,7 @@ define([
         initialize: function () {
             var self = this;
             var types = ['clubs', 'diamonds', 'hearts', 'spades'];
-            var numbers = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'spades'];
+            var numbers = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king'];
             types.forEach(function (type) {
                numbers.forEach(function (number) {
                    self.cardsImages.push(number + '_' + type + '.png');

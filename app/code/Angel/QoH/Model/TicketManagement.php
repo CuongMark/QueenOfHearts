@@ -39,7 +39,7 @@ class TicketManagement
      */
     public function getProcessingTicket($productId){
         return $this->getCollection($productId)
-            ->addFieldToFilter('status', Status::STATUS_PAID)
+            ->addFieldToFilter('status', ['in' => [Status::STATUS_PAID, Status::STATUS_WAITING, Status::STATUS_PRINTED]])
             ->setOrder('ticket_id', 'ASC');
     }
 
@@ -117,29 +117,19 @@ class TicketManagement
      */
     public function winningTickets($prize){
         $processingTicket = $this->getProcessingTicket($prize->getProductId());
-
         /** @var \Angel\QoH\Model\Ticket $ticket */
         foreach ($processingTicket as $ticket){
             if ($ticket->getStart() <= $prize->getWinningNumber() && $prize->getWinningNumber() <= $ticket->getEnd()){
                 $ticket->setWinningNumber($prize->getWinningNumber());
                 $ticket->setStatus(Status::STATUS_WINNING);
-                $this->ticketRepository->save($ticket->getDataModel());
+                $winningTicket = $this->ticketRepository->save($ticket->getDataModel());
+                if (!$prize->getTicketId()){
+                    $prize->setTicketId($winningTicket->getTicketId());
+                }
             } else {
                 $ticket->setStatus(Status::STATUS_LOSE);
                 $this->ticketRepository->save($ticket->getDataModel());
             }
-        }
-
-        /** @var Collection $collection */
-        $collection = $this->collectionFactory->create();
-        $collection->addFieldToFilter('product_id', $prize->getProductId())
-            ->addFieldToFilter('status', ['in' => [Status::STATUS_WINNING]])
-            ->setCurPage(1)
-            ->setPageSize(1);
-        if ($collection->getSize()){
-            return $collection->getFirstItem();
-        } else {
-            throw new \Exception(__('There are not winning Ticket'));
         }
     }
 

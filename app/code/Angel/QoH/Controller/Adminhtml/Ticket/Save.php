@@ -65,7 +65,7 @@ class Save extends \Magento\Backend\App\Action
 
                     $this->dataPersistor->clear('angel_qoh_ticket');
                     if ($this->getRequest()->getParam('back')) {
-                        return $resultRedirect->setPath('*/*/edit', ['ticket_id' => $ticket->getId()]);
+                        return $resultRedirect->setPath('*/*/edit', ['ticket_id' => $ticket->getTicketId()]);
                     }
                     return $resultRedirect->setPath('*/*/');
                 } catch (\Exception $e){

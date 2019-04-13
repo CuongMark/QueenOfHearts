@@ -5,12 +5,8 @@
     "license": "proprietary",
     "authors": [
         {
-            "email": "info@mage2gen.com",
-            "name": "Mage2Gen"
-        },
-        {
             "email": "cuonglv53@gmail.com",
-            "name": "c\u01b0\u1eddng L\u00e2m Vi\u1ebft"
+            "name": "Mark Wolf"
         }
     ],
     "minimum-stability": "dev",

@@ -18,7 +18,7 @@ class PrintButton extends GenericButton implements ButtonProviderInterface
             $data = [
                 'label' => __('Print'),
                 'class' => 'delete',
-                'on_click' => 'printTicket(1,6)',
+                'on_click' => 'printTicket()',
                 'sort_order' => 22,
             ];
         }

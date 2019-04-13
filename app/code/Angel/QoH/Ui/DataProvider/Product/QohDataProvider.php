@@ -75,7 +75,7 @@ class QohDataProvider extends \Magento\Catalog\Ui\DataProvider\Product\ProductDa
     public function getData()
     {
         $this->getCollection()->addAttributeToFilter('type_id', ['in' => [\Angel\Qoh\Model\Product\Type\Qoh::TYPE_ID]]);
-        $this->getCollection()->addAttributeToSelect(['qoh_start_at', 'qoh_finish_at', 'qoh_status', 'start_pot']);
+        $this->getCollection()->addAttributeToSelect(['qoh_start_at', 'qoh_finish_at', 'qoh_status', 'qoh_start_pot']);
         if (!$this->getCollection()->isLoaded()) {
             $this->getCollection()->load();
         }

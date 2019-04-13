@@ -3,9 +3,15 @@
  * @var $block \Angel\QoH\Block\Product\View
  */
 ?>
+<?php if ($block->getProduct()->getQohStatus() == \Angel\QoH\Model\Product\Attribute\Source\Status::FINISHED): ?>
+    <h2><?= __('Queen of Hearts Raffle was finished') ?></h2>
+<?php elseif ($block->getProduct()->getQohStatus() == \Angel\QoH\Model\Product\Attribute\Source\Status::CANCELED): ?>
+    <h2><?= __('Queen of Hearts Raffle was canceled') ?></h2>
+<?php else: ?>
     <?php $date = new \DateTime(); ?>
     <?php $finish_at = new \DateTime($block->getProduct()->getQohFinishAt()); ?>
     <div data-mage-init='{"qohCountdown": {"time_left":<?= $finish_at->getTimestamp() - $date->getTimestamp() ?>}}'></div>
+<?php endif; ?>
 <script type="text/x-magento-init">
     {
         "#product_addtocart_form": {

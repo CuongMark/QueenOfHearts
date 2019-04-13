@@ -7,8 +7,9 @@ define([
     'jquery',
     'underscore',
     'Magento_Ui/js/form/form',
+    'Angel_QoH/js/model/queen-of-hearts',
     'uiRegistry'
-], function ($, _, Form, registry) {
+], function ($, _, Form, qoh, registry) {
     'use strict';
 
     return Form.extend({
@@ -17,6 +18,7 @@ define([
                 responseData: 'processResponseData'
             }
         },
+        printTickets : qoh.printTickets,
         /**
          * Validate and save form.
          *
@@ -31,9 +33,9 @@ define([
                 }
                 var self = this;
                 _.forEach(this.elems(), function(el){
-                    if(el.index == 'barcode_print_listing'){
+                    if(el.index == 'ticket_print_listing'){
                         data['namespace'] = el.ns;
-                        registry.async(el.ns+"."+el.ns+"."+el.ns+"_columns.ids")(function(idsColumn){
+                        registry.async(el.ns+"."+el.ns+".angel_qoh_ticket_columns.ids")(function(idsColumn){
                             if(idsColumn){
                                 var selection = idsColumn.getSelections();
                                 if(selection.excludeMode == true){
@@ -64,8 +66,9 @@ define([
          */
         processResponseData: function (response) {
             var self = this;
-            if(response.success && response.html){
-                self.printBarcode(response.html);
+            if(response){
+                qoh.setTicketsToPrint(response);
+                self.printBarcode($('#tickets_to_print_box').html());
             }
             if(response.error && response.messages){
                 Alert('Error',response.messages);
