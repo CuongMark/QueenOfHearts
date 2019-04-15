@@ -1,0 +1,56 @@
+<div id="print_receipt_box">
+    <div id="ticket_receipt">
+        <h1 data-bind="i18n: 'Ticket Receipt'"></h1>
+        <span data-bind="text: '*** ***'"></span>
+        <span data-bind="text: ticketId"></span>
+        <span data-bind="text: timeFormated"></span>
+        <table>
+            <thead>
+                <tr>
+                    <th data-bind="i18n: 'Raffle Name'"></th>
+                    <th data-bind="i18n: 'Start'"></th>
+                    <th data-bind="i18n: 'End'"></th>
+                    <th data-bind="i18n: 'Card Number'"></th>
+                    <th data-bind="i18n: 'Price'"></th>
+                </tr>
+            </thead>
+            <tr>
+                <td data-bind="text: product_name"></td>
+                <td data-bind="text: ticket().start"></td>
+                <td data-bind="text: ticket().end"></td>
+                <td data-bind="text: ticket().card_number"></td>
+                <td data-bind="text: priceFormated"></td>
+            </tr>
+        </table>
+        <span data-bind="text: '----------- ------------'"></span>
+        <span data-bind="i18n: 'Thank you for your purchase'"></span>
+        <span id="ticket_barcode"></span>
+    </div>
+    <style>
+        #print_receipt_box{
+            display: none;
+        }
+        div#ticket_receipt span {
+            display: block;
+        }
+
+        div#ticket_receipt {
+            text-align: center;
+        }
+
+        div#ticket_receipt td {
+            text-align: center !important;
+        }
+
+        div#ticket_receipt table {
+            width: 100%;
+        }
+
+        div#ticket_receipt table th{
+            font-weight: bold;
+        }
+        #ticket_barcode{
+            margin: auto;
+        }
+    </style>
+</div>

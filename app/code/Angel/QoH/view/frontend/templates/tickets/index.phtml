@@ -41,7 +41,7 @@
                                 <span><?= /* @escapeNotVerified */ __('Move To Trash') ?></span>
                             </a>
                         <?php endif; ?>
-                        <button type="button" onclick="printTicket(<?= $_ticket->getTicketId() ?>)"><?= __('Print') ?></button>
+                        <button class="print-receipt" type="button" ticket_id="<?= $_ticket->getId() ?>"><?= __('Print Receipt') ?></button>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -51,15 +51,29 @@
     <?php if ($block->getPagerHtml()): ?>
         <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
     <?php endif ?>
-    <script>
-        function printTicket(ticket_id) {
-            alert('I\'m working on this.');
-            // w=window.open();
-            // w.document.write('');
-            // w.print();
-            // w.close();
+    <script type="text/x-magento-init">
+        {
+            ".print-receipt": {
+                "Angel_QoH/js/print-receipt": {}
+            }
         }
     </script>
+    <div id="printReceipt" data-bind="scope:'printReceipt'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <script type="text/x-magento-init">
+            {
+                "#printReceipt": {
+                    "Magento_Ui/js/core/app": {
+                        "components" : {
+                            "printReceipt" : {
+                                "component": "Angel_QoH/js/view/print-receipt"
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+    </div>
 <?php else: ?>
     <div class="message info empty"><span><?= /* @escapeNotVerified */ __('You have not purchased any tickets.') ?></span></div>
 <?php endif ?>

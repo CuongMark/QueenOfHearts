@@ -9,4 +9,13 @@
 			<parameter name="customerId" force="true">%customer_id%</parameter>
 		</data>
 	</route>
+	<route method="POST" url="/V1/angel-qoh/receipt">
+		<service class="Angel\QoH\Api\ReceiptManagementInterface" method="getReceipt"/>
+		<resources>
+			<resource ref="self"/>
+		</resources>
+		<data>
+			<parameter name="customerId" force="true">%customer_id%</parameter>
+		</data>
+	</route>
 </routes>

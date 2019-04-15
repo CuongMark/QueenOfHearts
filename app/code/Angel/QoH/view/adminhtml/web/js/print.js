@@ -29,10 +29,11 @@ define([
             };
 
             window.printReceipt = function () {
-                receipt.ticket(self.tickets[0]);
+                var ticket = self.tickets[0];
+                receipt.ticket(ticket);
                 receipt.product_name(self.product_name);
                 $("#ticket_barcode").barcode(
-                    "1234567890128", // Value barcode (dependent on the type of barcode)
+                    ticket.serial, // Value barcode (dependent on the type of barcode)
                     "ean13", // type (string)
                     {barWidth: 2}
                 );

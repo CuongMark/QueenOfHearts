@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 	<preference for="Angel\QoH\Api\PurchaseManagementInterface" type="Angel\QoH\Model\PurchaseManagement"/>
+	<preference for="Angel\QoH\Api\ReceiptManagementInterface" type="Angel\QoH\Model\ReceiptManagement"/>
 	<preference for="Angel\QoH\Api\TicketRepositoryInterface" type="Angel\QoH\Model\TicketRepository"/>
 	<preference for="Angel\QoH\Api\Data\TicketInterface" type="Angel\QoH\Model\Data\Ticket"/>
 	<preference for="Angel\QoH\Api\Data\TicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
