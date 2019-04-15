@@ -14,6 +14,9 @@ class PrintBlock extends \Magento\Backend\Block\Template
     private $customerRepository;
     private $productRepository;
 
+    protected $ticket;
+    protected $product;
+    protected $customer;
     /**
      * Constructor
      *
@@ -39,17 +42,16 @@ class PrintBlock extends \Magento\Backend\Block\Template
     public function getTicketJson(){
         $data = [];
         try {
-            $ticketId = $this->getRequest()->getParam('ticket_id');
-            /** @var Ticket $ticket */
-            $ticket = $this->ticketRepository->getById($ticketId);
-            $customer = $this->customerRepository->getById($ticket->getCustomerId());
-            $product = $this->productRepository->getById($ticket->getProductId());
             $data = [
-                'product_sku' => $product->getSku(),
-                'start' => $ticket->getStart(),
-                'end' => $ticket->getEnd(),
-                'card_number' => $ticket->getCardNumber(),
-                'customer_email' => $customer->getEmail()
+                'product_sku' => $this->getProduct()->getSku(),
+                'id' => $this->getTicket()->getTicketId(),
+                'start' => $this->getTicket()->getStart(),
+                'end' => $this->getTicket()->getEnd(),
+                'card_number' => $this->getTicket()->getCardNumber(),
+                'price' => $this->getTicket()->getPrice(),
+                'serial' => $this->getTicket()->getSerial(),
+                'created_at' => $this->getTicket()->getCreatedAt(),
+                'customer_email' => $this->getCustomer()->getEmail()
             ];
             json_encode([$data]);
         } catch (\Exception $e){
@@ -58,4 +60,40 @@ class PrintBlock extends \Magento\Backend\Block\Template
         return json_encode([$data]);
     }
 
+    /**
+     * @return \Angel\QoH\Api\Data\TicketInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getTicket(){
+        if (!$this->ticket){
+            $ticketId = $this->getRequest()->getParam('ticket_id');
+            /** @var Ticket $ticket */
+            $this->ticket = $this->ticketRepository->getById($ticketId);
+        }
+        return $this->ticket;
+    }
+
+    /**
+     * @return \Magento\Catalog\Api\Data\ProductInterface|mixed
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getProduct(){
+        if (!$this->product){
+            $this->product = $product = $this->productRepository->getById($this->getTicket()->getProductId());
+        }
+        return $this->product;
+    }
+
+    /**
+     * @return \Magento\Customer\Api\Data\CustomerInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getCustomer(){
+        if (!$this->customer){
+            $this->customer = $product = $this->customerRepository->getById($this->getTicket()->getCustomerId());
+        }
+        return $this->customer;
+    }
 }

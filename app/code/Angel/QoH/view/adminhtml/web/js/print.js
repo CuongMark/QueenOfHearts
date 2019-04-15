@@ -6,8 +6,10 @@ define([
     'jquery',
     'ko',
     'mage/mage',
-    'Angel_QoH/js/model/queen-of-hearts'
-], function ($, ko, mage, qoh) {
+    'Angel_QoH/js/model/queen-of-hearts',
+    'Angel_QoH/js/model/receipt',
+    'Angel_QoH/js/jquery-barcode',
+], function ($, ko, mage, qoh, receipt) {
     'use strict';
 
     $.widget('qoh.printTicket', {
@@ -19,15 +21,26 @@ define([
         _create: function () {
             var self = this;
             this.tickets = self.options.tickets;
+            this.product_name = self.options.product_name;
 
             window.printTicket = function () {
                 qoh.setTicketsToPrint(self.tickets);
                 self.printBarcode($('#tickets_to_print_box').html());
-            }
+            };
+
+            window.printReceipt = function () {
+                receipt.ticket(self.tickets[0]);
+                receipt.product_name(self.product_name);
+                $("#ticket_barcode").barcode(
+                    "1234567890128", // Value barcode (dependent on the type of barcode)
+                    "ean13", // type (string)
+                    {barWidth: 2}
+                );
+                self.printBarcode($('#print_receipt_box').html());
+            };
         },
 
         /**
-         *
          * @param html
          */
         printBarcode: function(html){

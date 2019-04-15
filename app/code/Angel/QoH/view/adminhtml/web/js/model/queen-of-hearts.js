@@ -10,6 +10,7 @@ define([
     'use strict';
 
     return {
+        name: ko.observable(''),
         jackPot: ko.observable(0),
         prizes: ko.observable([]),
         tickets: ko.observable([]),

@@ -12,6 +12,7 @@
             <button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\BackButton" name="back"/>
             <!--<button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\DeleteButton" name="delete"/>-->
             <button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\PrintButton" name="print"/>
+            <button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\PrintReceiptButton" name="printReceipt"/>
             <button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\SaveButton" name="save"/>
             <button class="Angel\QoH\Block\Adminhtml\Ticket\Edit\SaveAndContinueButton" name="save_and_continue"/>
         </buttons>
