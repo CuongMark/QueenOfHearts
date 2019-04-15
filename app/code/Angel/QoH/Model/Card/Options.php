@@ -14,6 +14,10 @@ namespace Angel\QoH\Model\Card;
 class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
 {
 
+    const TYPES = ['clubs', 'diamonds', 'hearts', 'spades'];
+    const NUMBERS = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king'];
+    const IMG_PATH= 'pub/static/Angel/QoH/img/cards/';
+
     const NO_CARD = 0;
     const ACE_CLUBS = 1;
     const TWO_CLUBS = 2;
@@ -204,6 +208,21 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             self::JOCKER_A => __('Jocker'),
             self::JOCKER_B => __('Jocker')
         );
+    }
+
+    /**
+     * @return array
+     */
+    static public function getCardSrc(){
+        $cardSrc = [];
+        foreach (self::TYPES as $type){
+            foreach (self::NUMBERS as $number){
+                $cardSrc[] = $number.'_'.$type.'.png';
+            }
+        }
+        $cardSrc[] = 'jocker_a.png';
+        $cardSrc[] = 'jocker_b.png';
+        return $cardSrc;
     }
 
     /**

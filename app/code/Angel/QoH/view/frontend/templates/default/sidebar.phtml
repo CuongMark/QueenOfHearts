@@ -1,0 +1,37 @@
+<?php
+    /** @var \Angel\QoH\Block\Qoh $block */
+    $prizes = $block->getPrizes();
+?>
+<?php if ($prizes && $prizes->getSize()): ?>
+    <div class="block block-layered-nav finished-auction">
+        <div class="block-title">
+            <strong><span><?= __('Queen of Hearts Prizes') ?></span></strong>
+        </div>
+        <ul class="qoh-prizes" style="list-style: none; padding-left: 3px;">
+            <?php /** @var \Angel\QoH\Model\Data\Prize $prize */ ?>
+            <?php foreach ($prizes as $prize): ?>
+                <li>
+                    <strong><a href="<?= $block->getUrl('catalog/product/view', array('id'=> $prize->getProductId())) ?>"><?= $prize->getProductName() ?></a> </strong>
+                    <div class="prize_item">
+                        <img class="prize_image" src="<?= $block->getImageSrc($prize->getCard()) ?>" />
+                        <div class="prize_info">
+                            <p><strong><?= __('Winning Number') ?></strong>: <span><?= $prize->getWinningNumber() ?></span></p>
+                            <p><strong><?= __('Prize') ?></strong>: <span><?= $block->formatPrice($prize->getPrize()) ?></span></p>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <style>
+        .prize_image{
+            width: 20%;
+            display: inline-block;
+        }
+        .prize_info{
+            width: 75%;
+            display: inline-block;
+            vertical-align: top;
+        }
+    </style>
+<?php endif; ?>
