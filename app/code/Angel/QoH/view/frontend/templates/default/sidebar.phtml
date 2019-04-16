@@ -3,6 +3,7 @@
     $prizes = $block->getPrizes();
 ?>
 <?php if ($prizes && $prizes->getSize()): ?>
+<marquee direction="up" scrollamount="2">
     <div class="block block-layered-nav finished-auction">
         <div class="block-title">
             <strong><span><?= __('Queen of Hearts Prizes') ?></span></strong>
@@ -23,6 +24,7 @@
             <?php endforeach; ?>
         </ul>
     </div>
+</marquee>
     <style>
         .prize_image{
             width: 20%;

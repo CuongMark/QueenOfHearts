@@ -4,7 +4,7 @@ define([], function () {
             format = '<span class="countdown_row countdown_show4"><span class="countdown_section"><span class="countdown_amount">%d</span><br>Days</span><span class="countdown_section"><span class="countdown_amount">%h</span><br>Hours</span><span class="countdown_section"><span class="countdown_amount">%m</span><br>Minutes</span><span class="countdown_section"><span class="countdown_amount">%s</span><br>Seconds</span></span>';
         }
         if (time<=0){
-            return 'The Raffle is pending. Wait to draw card.';
+            return 'This raffle is pending. Waiting for the card draw.';
         }
         var days = Math.floor(time/86400);
         var hours = Math.floor((time - 86400*days)/3600);

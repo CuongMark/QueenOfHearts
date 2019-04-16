@@ -75,7 +75,7 @@ define([
                     }
                     confirmation({
                         title: 'Accept Purchase',
-                        content: 'Are you sure to purchase '+ $('#qty').val() +' tickets with card number is '+ $('#cardNumber').val() +'?',
+                        content: 'Are you sure you want to purchase ' + $('#qty').val() + ' ticket(s) with the card number ' + $('#cardNumber').val() +'.',
                         actions: {
                             confirm: function () {
                                 self.submitPurchaseRequest(form);
