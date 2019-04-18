@@ -1,0 +1,43 @@
+<?php
+/** @var \Angel\QoH\Block\Adminhtml\Ticket\PrintBlock $block */
+?>
+<script type="text/x-magento-init">
+    {
+        "#print": {
+            "Angel_QoH/js/print": {}
+        }
+    }
+</script>
+<div id="printTicket" data-bind="scope:'printTicket'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#printTicket": {
+                "Magento_Ui/js/core/app": {
+                    "components" : {
+                        "printTicket" : {
+                            "component": "Angel_QoH/js/view/print-ticket"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</div>
+<div id="printReceipt" data-bind="scope:'printReceipt'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#printReceipt": {
+                "Magento_Ui/js/core/app": {
+                    "components" : {
+                        "printReceipt" : {
+                            "component": "Angel_QoH/js/view/print-receipt"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</div>
+

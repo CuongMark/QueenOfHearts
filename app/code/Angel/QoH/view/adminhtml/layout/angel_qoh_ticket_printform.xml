@@ -9,7 +9,7 @@ See COPYING.txt for license details.
     <body>
         <referenceContainer name="content">
             <uiComponent name="angel_qoh_print_form"/>
-            <block class="Angel\QoH\Block\Adminhtml\Ticket\PrintBlock" name="ticket.print" template="Angel_QoH::ticket/print.phtml" before="-"/>
+            <block class="Angel\QoH\Block\Adminhtml\Ticket\PrintBlock" name="ticket.print" template="Angel_QoH::ticket/mass_print.phtml" before="-"/>
         </referenceContainer>
     </body>
 </page>
