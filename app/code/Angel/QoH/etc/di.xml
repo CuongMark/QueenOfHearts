@@ -14,6 +14,7 @@
 	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
 		<arguments>
 			<argument name="collections" xsi:type="array">
+				<item name="angel_qoh_ticket_report_data_source" xsi:type="string">Angel\QoH\Model\ResourceModel\Ticket\Grid\Collection</item>
 				<item name="angel_qoh_ticket_listing_data_source" xsi:type="string">Angel\QoH\Model\ResourceModel\Ticket\Grid\Collection</item>
 				<item name="angel_qoh_ticket_print_listing_data_source" xsi:type="string">Angel\QoH\Model\ResourceModel\Ticket\Grid\PrintTicket\Collection</item>
 				<item name="angel_qoh_prize_listing_data_source" xsi:type="string">Angel\QoH\Model\ResourceModel\Prize\Grid\Collection</item>

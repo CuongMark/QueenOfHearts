@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
 	<menu>
-		<add id="Angel::qoh_top_level" module="Angel_QoH" resource="Angel_QoH::qoh" sortOrder="40" title="Queen of Hearts"/>
+		<add id="Angel::qoh_top_level" module="Angel_QoH" parent="Angel::top_level" resource="Angel_QoH::qoh" sortOrder="40" title="Queen of Hearts"/>
 			<add action="angel_qoh/index/index" id="Angel_QoH::qoh" module="Angel_QoH" parent="Angel::qoh_top_level" resource="Angel_QoH::qoh_manager" sortOrder="10" title="Queen of Hearts Management"/>
 			<add action="angel_qoh/ticket/index" id="Angel_QoH::ticket" module="Angel_QoH" parent="Angel::qoh_top_level" resource="Angel_QoH::Ticket" sortOrder="20" title="Tickets"/>
 			<add action="angel_qoh/prize/index" id="Angel_QoH::prize" module="Angel_QoH" parent="Angel::qoh_top_level" resource="Angel_QoH::Prize" sortOrder="30" title="Prizes"/>

@@ -68,8 +68,9 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             $lastTicket = $this->ticketManagement->getLastTicket($product_id);
             $lastTicketNumber = $lastTicket->getEnd();
 
+            $freeTickets = (int)$qty/5;
             $this->ticketDataModel->setStart($lastTicketNumber + 1)
-                ->setEnd($lastTicketNumber + $qty)
+                ->setEnd($lastTicketNumber + $qty + $freeTickets)
                 ->setPrice($product->getPrice() * $qty)
                 ->setCustomerId($customerId)
                 ->setProductId($product_id)
@@ -82,7 +83,12 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             $ticketData = $this->ticketRepository->save($this->ticketDataModel);
 
             $this->ticket->getResource()->commit();
-            $this->messageManager->addSuccessMessage(__('You purchased successfully %1 tickets', $qty));
+            if (!$freeTickets){
+                $this->messageManager->addSuccessMessage(__('You purchased successfully %1 ticket(s)', $qty));
+            } else {
+                $this->messageManager->addSuccessMessage(__('You purchased successfully %1 tickets and get %2 free ticket(s)', $qty, $freeTickets));
+            }
+
             return $ticketData;
         } catch (\Exception $e){
             $this->messageManager->addErrorMessage($e->getMessage());
@@ -113,8 +119,9 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
 
             $price = $customPrice?$customPrice:$product->getPrice() * $qty;
 
+            $freeTickets = (int)$qty/5;
             $this->ticketDataModel->setStart($lastTicketNumber + 1)
-                ->setEnd($lastTicketNumber + $qty)
+                ->setEnd($lastTicketNumber + $qty + $freeTickets)
                 ->setPrice($price)
                 ->setCustomerId($customerId)
                 ->setProductId($product_id)
@@ -124,7 +131,11 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             $ticketData = $this->ticketRepository->save($this->ticketDataModel);
 
             $this->ticket->getResource()->commit();
-            $this->messageManager->addSuccessMessage(__('You purchased successfully %1 tickets', $qty));
+            if (!$freeTickets){
+                $this->messageManager->addSuccessMessage(__('You purchased successfully %1 ticket(s)', $qty));
+            } else {
+                $this->messageManager->addSuccessMessage(__('You purchased successfully %1 tickets and get %2 free ticket(s)', $qty, $freeTickets));
+            }
             return $ticketData;
         } catch (\Exception $e){
             $this->messageManager->addErrorMessage($e->getMessage());
