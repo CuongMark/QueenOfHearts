@@ -19,7 +19,7 @@ define([
         cards: ko.observable(),
         cardsImages : [],
         getImageUrl: function(cardName){
-            return 'pub/static/Angel/QoH/img/cards/' + cardName;
+            return 'pub/media/Angel/QoH/img/cards/' + cardName;
         },
 
         /** @inheritdoc */

@@ -171,7 +171,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
          */
         foreach ($data as $ticket){
             if ($ticket[1] <= 0){
-                throw new \Exception(__('The Qty "%1" is not available'), $ticket[1]);
+                throw new \Exception(__('The Qty "%1" is not available', $ticket[1]));
             }
             if ($ticket[2] < 1 || $ticket[2] > 54 || in_array((int)$ticket[2], $drawnCard)){
                 throw new \Exception(__('The Card Number %1 is not available', $ticket[2]));

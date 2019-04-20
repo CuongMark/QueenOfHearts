@@ -58,7 +58,7 @@ class Save extends \Magento\Backend\App\Action
                 $product_id = $this->getRequest()->getParam('product_id');
                 $qty = $this->getRequest()->getParam('qty');
                 $card_number = $this->getRequest()->getParam('card_number');
-                $status = $this->getRequest()->getParam('card_number');
+                $status = $this->getRequest()->getParam('status');
 
                 try {
                     $customer = $this->customerManagement->getOrCreateCustomerByEmail($email);

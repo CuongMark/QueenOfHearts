@@ -18,10 +18,11 @@ class Qoh extends \Magento\Catalog\Model\Product\Type\Virtual
         // method intentionally empty
     }
 
-//    public function isSalable($product)
-//    {
-//        if ($product->getQohStatus() == Status::PROCESSING) {
-//            return parent::isSalable($product);
-//        } else return false;
-//    }
+    public function isSalable($product)
+    {
+        if ($product->getFdStatus() != Status::PROCESSING){
+            return false;
+        }
+        return parent::isSalable($product);
+    }
 }
