@@ -7,6 +7,7 @@ use Angel\QoH\Model\Ticket\Status;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Customer\Model\Session;
+use Magento\Framework\DataObject;
 use Magento\Framework\Message\ManagerInterface;
 
 class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
@@ -68,7 +69,10 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             $lastTicket = $this->ticketManagement->getLastTicket($product_id);
             $lastTicketNumber = $lastTicket->getEnd();
 
-            $freeTickets = (int)$qty/5;
+            $freeTickets = new DataObject(['free_ticket' => 0]);
+            $this->eventManager->dispatch('angel_get_free_ticket', ['product' => $product, 'qty' => $qty, 'free' => $freeTickets]);
+            $freeTickets = $freeTickets->getData('free_ticket');
+
             $this->ticketDataModel->setStart($lastTicketNumber + 1)
                 ->setEnd($lastTicketNumber + $qty + $freeTickets)
                 ->setPrice($product->getPrice() * $qty)
@@ -119,7 +123,10 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
 
             $price = $customPrice?$customPrice:$product->getPrice() * $qty;
 
-            $freeTickets = (int)$qty/5;
+            $freeTickets = new DataObject(['free_ticket' => 0]);
+            $this->eventManager->dispatch('angel_get_free_ticket', ['product' => $product, 'qty' => $qty, 'free' => $freeTickets]);
+            $freeTickets = $freeTickets->getData('free_ticket');
+
             $this->ticketDataModel->setStart($lastTicketNumber + 1)
                 ->setEnd($lastTicketNumber + $qty + $freeTickets)
                 ->setPrice($price)

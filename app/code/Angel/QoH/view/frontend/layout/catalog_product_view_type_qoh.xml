@@ -6,8 +6,7 @@
     </head>
     <body>
         <referenceContainer name="product.info.main">
-            <block class="Angel\QoH\Block\Product\View" name="qoh.block" as="qoh.block" after="product.info.price" cacheable="false" template="Angel_QoH::product/view.phtml"/>
-            <!--<block class="Angel\QoH\Block\Product\View" name="tickets.block" as="tickets.block" after="tickets.block" template="Angel_QoH::product/tickets.phtml"/>-->
+            <block class="Angel\QoH\Block\Product\View" name="raffle.block" as="raffle.block" after="product.info.price" cacheable="false" template="Angel_QoH::product/view.phtml"/>
         </referenceContainer>
         <referenceBlock name="product.info.addtocart">
             <action method="setTemplate">
