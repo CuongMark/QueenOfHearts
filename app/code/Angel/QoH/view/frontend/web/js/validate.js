@@ -73,21 +73,36 @@ define([
                     if (self.isLoading()){
                         return false;
                     }
-                    confirmation({
-                        title: 'Accept Purchase',
-                        content: 'Are you sure you want to purchase ' + $('#qty').val() + ' ticket(s) with the card number ' + $('#cardNumber').val() +'.',
-                        actions: {
-                            confirm: function () {
-                                self.submitPurchaseRequest(form);
-                                return false;
-                            },
-                            cancel: function () {
-                                return false;
+
+                    if (self.isAddToCart) {
+                        var jqForm = $(form).catalogAddToCart({
+                            bindSubmit: bindSubmit
+                        });
+
+                        jqForm.catalogAddToCart('submitForm', jqForm);
+                    } else {
+                        confirmation({
+                            title: 'Accept Purchase',
+                            content: 'Are you sure you want to purchase ' + $('#qty').val() + ' ticket(s) with the card number ' + $('#cardNumber').val() + '.',
+                            actions: {
+                                confirm: function () {
+                                    self.submitPurchaseRequest(form);
+                                    return false;
+                                },
+                                cancel: function () {
+                                    return false;
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                     return false;
                 }
+            });
+            $('#ticket-purchase-button').click(function () {
+                self.isAddToCart = false;
+            });
+            $('#product-addtocart-button').click(function () {
+                self.isAddToCart = true;
             });
             purchaseAction.registerPurchaseCallback(function (purchaseData, response) {
                 if (response && response.ticket_id){
@@ -98,8 +113,10 @@ define([
                 }
                 self.isLoading(false);
                 $('#product-addtocart-button').removeClass('disabled');
+                $('#ticket-purchase-button').removeClass('disabled');
             });
             $('#product-addtocart-button').removeClass('disabled');
+            $('#ticket-purchase-button').removeClass('disabled');
         }
     });
 

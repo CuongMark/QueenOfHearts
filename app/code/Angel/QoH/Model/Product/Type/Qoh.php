@@ -25,4 +25,10 @@ class Qoh extends \Magento\Catalog\Model\Product\Type\Virtual
         }
         return parent::isSalable($product);
     }
+
+    public function hasOptions($product)
+    {
+        return true;
+//        return parent::hasOptions($product);
+    }
 }

@@ -13,7 +13,7 @@
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $customerSession = $objectManager->get('Magento\Customer\Model\Session');
 if($customerSession->isLoggedIn()) {
-    $buttonTitle = __('Purchase Tickets');
+    $buttonTitle = __('Purchase with Store Credit');
 } else {
     $buttonTitle = __('Login To Purchase');
 }
@@ -46,15 +46,33 @@ if($customerSession->isLoggedIn()) {
                 <!-- ko template: getTemplate() --><!-- /ko -->
             </div>
             <input type="hidden" name="sku" value="<?= $_product->getSku() ?>" />
-            <div class="actions">
-                <button type="submit"
-                        title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
-                        class="action primary tocart disabled"
-                        id="product-addtocart-button">
-                    <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
-                </button>
-                <?= $block->getChildHtml('', true) ?>
-            </div>
+            <?php if ($customerSession->isLoggedIn()): ?>
+                <div class="actions">
+                    <button type="submit"
+                            title="<?= /* @escapeNotVerified */ __('Add To Cart') ?>"
+                            class="action primary tocart disabled"
+                            id="product-addtocart-button">
+                        <span><?= /* @escapeNotVerified */ __('Add To Cart') ?></span>
+                    </button>
+                </div>
+                <div class="actions">
+                    <button type="submit"
+                            title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                            class="action primary tocart disabled"
+                            id="ticket-purchase-button">
+                        <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+                    </button>
+                </div>
+            <?php else: ?>
+                <div class="actions">
+                    <button type="submit"
+                            title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                            class="action primary tocart disabled"
+                            id="ticket-purchase-button">
+                        <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+                    </button>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 <?php endif; ?>

@@ -3,6 +3,7 @@
 
 namespace Angel\QoH\Model;
 
+use Angel\QoH\Model\Product\Type\Qoh;
 use Angel\QoH\Model\Ticket\Status;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ProductRepository;
@@ -73,9 +74,13 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             $this->eventManager->dispatch('angel_get_free_ticket', ['product' => $product, 'qty' => $qty, 'free' => $freeTickets]);
             $freeTickets = $freeTickets->getData('free_ticket');
 
+            $fee = new DataObject(['extra_fee' => 0]);
+            $this->eventManager->dispatch('angel_get_extra_fee', ['product' => $product, 'qty' => $qty, 'fee' => $fee]);
+            $fee = $fee->getData('extra_fee');
+
             $this->ticketDataModel->setStart($lastTicketNumber + 1)
                 ->setEnd($lastTicketNumber + $qty + $freeTickets)
-                ->setPrice($product->getPrice() * $qty)
+                ->setPrice($product->getPrice() * $qty + $fee)
                 ->setCustomerId($customerId)
                 ->setProductId($product_id)
                 ->setCardNumber($cardNumber)
@@ -127,9 +132,13 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             $this->eventManager->dispatch('angel_get_free_ticket', ['product' => $product, 'qty' => $qty, 'free' => $freeTickets]);
             $freeTickets = $freeTickets->getData('free_ticket');
 
+            $fee = new DataObject(['extra_fee' => 0]);
+            $this->eventManager->dispatch('angel_get_extra_fee', ['product' => $product, 'qty' => $qty, 'fee' => $fee]);
+            $fee = $fee->getData('extra_fee');
+
             $this->ticketDataModel->setStart($lastTicketNumber + 1)
                 ->setEnd($lastTicketNumber + $qty + $freeTickets)
-                ->setPrice($price)
+                ->setPrice($price + $fee)
                 ->setCustomerId($customerId)
                 ->setProductId($product_id)
                 ->setCardNumber($cardNumber)
@@ -200,6 +209,71 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             $this->ticketRepository->save($this->ticketDataModel);
             $lastTicketNumber += $ticket[1];
         }
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createTicketByInvoiceItem($invoiceItem)
+    {
+        $product = $this->productRepository->getById($invoiceItem->getProductId());
+        if ($product->getTypeId()!=Qoh::TYPE_ID){
+            return true;
+        }
+        try {
+            $this->ticket->getResource()->beginTransaction();
+            $qty = $invoiceItem->getQty();
+            $cardNumber = 1;
+
+            if ($qty<=0){
+                throw new \Exception('The Qty is not available');
+            }
+            if ($cardNumber < 1 || $cardNumber > 54 || in_array($cardNumber, $this->prizeManagement->getDrawnCards($product->getId()))){
+                throw new \Exception('The Card Number is not available');
+            }
+            if (! in_array($product->getQohStatus(), [\Angel\QoH\Model\Product\Attribute\Source\Status::PROCESSING, \Angel\QoH\Model\Product\Attribute\Source\Status::WAITING])){
+                throw new \Exception('The Raffle is not saleable');
+            }
+
+            $customerId = $invoiceItem->getOrderItem()->getOrder()->getCustomerId();
+
+            /** @var Ticket $lastTicket */
+            $lastTicket = $this->ticketManagement->getLastTicket($product->getId());
+            $lastTicketNumber = $lastTicket->getEnd();
+
+            $price = $product->getPrice() * $qty;
+
+            $freeTickets = new DataObject(['free_ticket' => 0]);
+            $this->eventManager->dispatch('angel_get_free_ticket', ['product' => $product, 'qty' => $qty, 'free' => $freeTickets]);
+            $freeTickets = $freeTickets->getData('free_ticket');
+
+            $fee = new DataObject(['extra_fee' => 0]);
+            $this->eventManager->dispatch('angel_get_extra_fee', ['product' => $product, 'qty' => $qty, 'fee' => $fee]);
+            $fee = $fee->getData('extra_fee');
+
+            $this->ticketDataModel->setStart($lastTicketNumber + 1)
+                ->setEnd($lastTicketNumber + $qty + $freeTickets)
+                ->setPrice($price + $fee)
+                ->setCustomerId($customerId)
+                ->setProductId($product->getId())
+                ->setCardNumber($cardNumber)
+                ->setStatus(Status::STATUS_PAID)
+                ->setSerial($this->generateSerial());
+            $ticketData = $this->ticketRepository->save($this->ticketDataModel);
+
+            $this->ticket->getResource()->commit();
+            if (!$freeTickets){
+                $this->messageManager->addSuccessMessage(__('You purchased successfully %1 ticket(s)', $qty));
+            } else {
+                $this->messageManager->addSuccessMessage(__('You purchased successfully %1 tickets and get %2 free ticket(s)', $qty, $freeTickets));
+            }
+            return $ticketData;
+        } catch (\Exception $e){
+            $this->messageManager->addErrorMessage($e->getMessage());
+            $this->ticket->getResource()->rollBack();
+        }
+        return $this->ticketDataModel;
     }
 
     private function generateSerial()

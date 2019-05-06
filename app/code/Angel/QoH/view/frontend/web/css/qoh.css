@@ -1,3 +1,7 @@
+.product-social-links, .moved-add-to-links{
+    display: none;
+}
+
 .qoh_card {
     width: 10%;
     display: inline-table;

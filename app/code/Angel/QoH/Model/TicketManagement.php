@@ -11,6 +11,10 @@ use Magento\Catalog\Model\Product;
 
 class TicketManagement
 {
+    const INVOICE_ITEM_TABLE = 'invoice_item';
+    const INVOICE_TABLE = 'invoice';
+    const ORDER_TABLE = 'order'; 
+    
     private $collectionFactory;
     private $ticketRepository;
 
@@ -30,6 +34,63 @@ class TicketManagement
         /** @var Collection $collection */
         $collection = $this->collectionFactory->create();
         $collection->addFieldToFilter('product_id', $productId);
+        return $collection;
+    }
+
+    public function getCollectionByOrderId($orderId){
+        /** @var Collection $collection */
+        $collection = $this->collectionFactory->create();
+        $this->joinInvoiceItemTable($collection);
+        $this->joinInvoiceTable($collection);
+        $this->joinOrderTable($collection, $orderId);
+        return $collection;
+    }
+
+    /**
+     * @param \Angel\QoH\Model\ResourceModel\Ticket\Collection $collection
+     * @return \Angel\QoH\Model\ResourceModel\Ticket\Collection
+     */
+    public function joinInvoiceItemTable($collection){
+        if (!isset($this->isJoinedInvoieItem)) {
+            $collection->isJoinedInvoieItem = true;
+            $collection->getSelect()->joinLeft(
+                [static::INVOICE_ITEM_TABLE => $collection->getTable('sales_invoice_item')],
+                static::INVOICE_ITEM_TABLE . '.entity_id = main_table.invoice_item_id',
+                ['product_id' => static::INVOICE_ITEM_TABLE . '.product_id']
+            );
+        }
+        return $collection;
+    }
+
+    /**
+     * @param \Angel\QoH\Model\ResourceModel\Ticket\Collection $collection
+     * @return \Angel\QoH\Model\ResourceModel\Ticket\Collection
+     */
+    public function joinInvoiceTable($collection){
+        if (!isset($collection->isJoinedInvoie)) {
+            $collection->isJoinedInvoie = true;
+            $collection->getSelect()->joinLeft(
+                [static::INVOICE_TABLE => $collection->getTable('sales_invoice')],
+                static::INVOICE_ITEM_TABLE . '.parent_id =' . static::INVOICE_TABLE . '.entity_id',
+                ['invoice_id' => static::INVOICE_TABLE . '.entity_id']
+            );
+        }
+        return $collection;
+    }
+
+    /**
+     * @param \Angel\QoH\Model\ResourceModel\Ticket\Collection $collection
+     * @return \Angel\QoH\Model\ResourceModel\Ticket\Collection
+     */
+    public function joinOrderTable($collection, $orderId = null){
+        $collection->getSelect()->joinLeft(
+            [static::ORDER_TABLE => $collection->getTable('sales_order')],
+            static::ORDER_TABLE.'.entity_id ='.static::INVOICE_TABLE.'.order_id',
+            ['customer_id' => static::ORDER_TABLE.'.customer_id', 'order_increment_id' => static::ORDER_TABLE.'.increment_id', 'order_id' => static::ORDER_TABLE.'.entity_id', 'customer_email' => static::ORDER_TABLE.'.customer_email']
+        );
+        if ($orderId){
+            $collection->addFieldToFilter(static::ORDER_TABLE.'.entity_id', $orderId);
+        }
         return $collection;
     }
 

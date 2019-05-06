@@ -42,7 +42,7 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
     $pos = $block->getPositioned();
     $date = new \DateTime();
     ?>
-    <div class="products wrapper <?= /* @escapeNotVerified */ $viewMode ?> products-<?= /* @escapeNotVerified */ $viewMode ?>">
+    <div class="products wrapper columns4 <?= /* @escapeNotVerified */ $viewMode ?> products-<?= /* @escapeNotVerified */ $viewMode ?>">
         <?php $iterator = 1; ?>
         <ol class="products list items product-items">
             <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
