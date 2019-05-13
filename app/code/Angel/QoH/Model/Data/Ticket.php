@@ -236,4 +236,23 @@ class Ticket extends \Magento\Framework\Api\AbstractExtensibleObject implements 
     {
         return $this->setData(self::SERIAL, $serial);
     }
+
+    /**
+     * Get invoice_item_id
+     * @return string|null
+     */
+    public function getInvoiceItemId()
+    {
+        return $this->_get(self::INVOICE_ITEM_ID);
+    }
+
+    /**
+     * Set invoice_item_id
+     * @param string $invoiceItemId
+     * @return \Angel\QoH\Api\Data\TicketInterface
+     */
+    public function setInvoiceItemId($invoiceItemId)
+    {
+        return $this->setData(self::INVOICE_ITEM_ID, $invoiceItemId);
+    }
 }

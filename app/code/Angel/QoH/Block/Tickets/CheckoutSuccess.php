@@ -22,9 +22,12 @@ class CheckoutSuccess extends \Magento\Framework\View\Element\Template
     private $priceCurrency;
 
     /**
-     * Constructor
-     *
-     * @param \Magento\Framework\View\Element\Template\Context  $context
+     * CheckoutSuccess constructor.
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param CheckoutSession $checkoutSession
+     * @param TicketManagement $ticketManagement
+     * @param QohManagement $fdManagement
+     * @param PriceCurrencyInterface $priceCurrency
      * @param array $data
      */
     public function __construct(

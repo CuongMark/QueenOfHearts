@@ -17,6 +17,7 @@ interface TicketInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const CUSTOMER_ID = 'customer_id';
     const CREATED_AT = 'created_at';
     const END = 'end';
+    const INVOICE_ITEM_ID = 'invoice_item_id';
 
     /**
      * Get ticket_id
@@ -175,4 +176,17 @@ interface TicketInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Angel\QoH\Api\Data\TicketInterface
      */
     public function setSerial($serial);
+
+    /**
+     * Get invoice_item_id
+     * @return string|null
+     */
+    public function getInvoiceItemId();
+
+    /**
+     * Set invoice_item_id
+     * @param string $invoiceItemId
+     * @return \Angel\QoH\Api\Data\TicketInterface
+     */
+    public function setInvoiceItemId($invoiceItemId);
 }

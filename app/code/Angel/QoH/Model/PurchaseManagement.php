@@ -259,7 +259,8 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
                 ->setProductId($product->getId())
                 ->setCardNumber($cardNumber)
                 ->setStatus(Status::STATUS_PAID)
-                ->setSerial($this->generateSerial());
+                ->setSerial($this->generateSerial())
+                ->setInvoiceItemId($invoiceItem->getId());
             $ticketData = $this->ticketRepository->save($this->ticketDataModel);
 
             $this->ticket->getResource()->commit();
