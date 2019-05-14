@@ -66,6 +66,9 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             if ($product->getQohStatus() != \Angel\QoH\Model\Product\Attribute\Source\Status::PROCESSING){
                 throw new \Exception('The Raffle is not saleable');
             }
+            if (!$this->customerManagement->isInPurchaseGroup($customerId)){
+                throw new \Exception('You are not a member');
+            }
             /** @var Ticket $lastTicket */
             $lastTicket = $this->ticketManagement->getLastTicket($product_id);
             $lastTicketNumber = $lastTicket->getEnd();
@@ -121,6 +124,9 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             $product = $this->productRepository->getById($product_id);
             if (! in_array($product->getQohStatus(), [\Angel\QoH\Model\Product\Attribute\Source\Status::PROCESSING, \Angel\QoH\Model\Product\Attribute\Source\Status::WAITING])){
                 throw new \Exception('The Raffle is not saleable');
+            }
+            if (!$this->customerManagement->isInPurchaseGroup($customerId)){
+                throw new \Exception('You are not a member');
             }
             /** @var Ticket $lastTicket */
             $lastTicket = $this->ticketManagement->getLastTicket($product_id);
@@ -237,6 +243,10 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
             }
 
             $customerId = $invoiceItem->getOrderItem()->getOrder()->getCustomerId();
+
+            if (!$this->customerManagement->isInPurchaseGroup($customerId)){
+                throw new \Exception('You are not a member');
+            }
 
             /** @var Ticket $lastTicket */
             $lastTicket = $this->ticketManagement->getLastTicket($product->getId());

@@ -18,19 +18,22 @@ class CustomerManagement
     private $customerFactory;
     private $customerRepository;
     private $messageManager;
+    private $scopeConfig;
 
     public function __construct(
         StoreManagerInterface $storeManager,
         AccountManagementInterface $accountManagement,
         CustomerFactory $customerFactory,
         CustomerRepository $customerRepository,
-        ManagerInterface $mesageManager
+        ManagerInterface $mesageManager,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     ){
         $this->storeManager = $storeManager;
         $this->accountManagement = $accountManagement;
         $this->customerFactory = $customerFactory;
         $this->customerRepository = $customerRepository;
         $this->messageManager = $mesageManager;
+        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -66,6 +69,16 @@ class CustomerManagement
         } else {
             return $customer->getDataModel();
         }
+    }
+
+    public function isInPurchaseGroup($customer_id){
+        $customer = $this->customerRepository->getById($customer_id);
+        $purchaseGroups = explode(',', $this->getRafflePurchaseGroup());
+        return in_array($customer->getGroupId(), $purchaseGroups);
+    }
+
+    public function getRafflePurchaseGroup(){
+        return $this->scopeConfig->getValue('membership/general/purchase_ticket_group', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
     private function generateRandomString($length = 15) {
