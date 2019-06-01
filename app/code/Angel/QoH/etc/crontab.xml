@@ -4,5 +4,8 @@
 		<job instance="Angel\QoH\Cron\UpdateStatus" method="execute" name="angel_qoh_updatestatus">
 			<schedule>*/5 * * * *</schedule>
 		</job>
+		<job instance="Angel\QoH\Cron\DrawCard" method="execute" name="angel_qoh_draw_card">
+			<schedule>* * * * *</schedule>
+		</job>
 	</group>
 </config>

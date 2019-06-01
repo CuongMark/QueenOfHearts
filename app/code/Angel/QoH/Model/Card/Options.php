@@ -36,7 +36,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     const TWO_DIAMONDS = 15;
     const THREE_DIAMONDS = 16;
     const FOUR_DIAMONDS = 17;
-    const FIVE_DIAMONDS = 17;
+    const FIVE_DIAMONDS = 18;
     const SIX_DIAMONDS = 19;
     const SEVEN_DIAMONDS = 20;
     const EIGHT_DIAMONDS = 21;
@@ -50,7 +50,7 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     const THREE_HEARTS = 29;
     const FOUR_HEARTS = 30;
     const FIVE_HEARTS = 31;
-    const SIX_HEARTS = 31;
+    const SIX_HEARTS = 32;
     const SEVEN_HEARTS = 33;
     const EIGHT_HEARTS = 34;
     const NINE_HEARTS = 35;
@@ -205,9 +205,45 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             self::JACK_SPADES => __('Jack Spades'),
             self::QUEEN_SPADES => __('Queen Spades'),
             self::KING_SPADES => __('King Spades'),
-            self::JOCKER_A => __('Jocker'),
-            self::JOCKER_B => __('Jocker')
+            self::JOCKER_A => __('Jocker Red'),
+            self::JOCKER_B => __('Jocker Black')
         );
+    }
+
+    public static function isQoH($card){
+        return $card == self::QUEEN_HEARTS;
+    }
+
+    public static function isJocker($card){
+        return in_array($card, [self::JOCKER_A, self::JOCKER_B]);
+    }
+
+    public static function isFaceCard($card){
+        return in_array($card, [
+            self::JACK_CLUBS, self::JACK_DIAMONDS, self::JACK_HEARTS, self::JACK_SPADES,
+            self::QUEEN_CLUBS, self::QUEEN_DIAMONDS, self::QUEEN_SPADES,
+            self::KING_CLUBS, self::KING_DIAMONDS, self::KING_HEARTS, self::KING_SPADES
+        ]);
+    }
+
+    public static function isACard($card){
+        return in_array($card, [
+            self::ACE_CLUBS, self::ACE_DIAMONDS, self::ACE_HEARTS, self::ACE_SPADES
+        ]);
+    }
+
+    public static function isNumberCard($card){
+        return in_array($card, [
+            self::TWO_CLUBS, self::TWO_DIAMONDS, self::TWO_HEARTS, self::TWO_SPADES,
+            self::THREE_CLUBS, self::THREE_DIAMONDS, self::THREE_HEARTS, self::THREE_SPADES,
+            self::FOUR_CLUBS, self::FOUR_DIAMONDS, self::FOUR_HEARTS, self::FOUR_SPADES,
+            self::FIVE_CLUBS, self::FIVE_DIAMONDS, self::FIVE_HEARTS, self::FIVE_SPADES,
+            self::SIX_CLUBS, self::SIX_DIAMONDS, self::SIX_HEARTS, self::SIX_SPADES,
+            self::SEVEN_CLUBS, self::SEVEN_DIAMONDS, self::SEVEN_HEARTS, self::SEVEN_SPADES,
+            self::EIGHT_CLUBS, self::EIGHT_DIAMONDS, self::EIGHT_HEARTS, self::EIGHT_SPADES,
+            self::NINE_CLUBS, self::NINE_DIAMONDS, self::NINE_HEARTS, self::NINE_SPADES,
+            self::TEN_CLUBS, self::TEN_DIAMONDS, self::TEN_HEARTS, self::TEN_SPADES,
+        ]);
     }
 
     /**

@@ -172,7 +172,7 @@ class TicketManagement
     }
 
     /**
-     * @param Prize $prize
+     * @param Prize|\Angel\QoH\Model\Data\Prize $prize
      * @return \Angel\QoH\Model\Data\Ticket|\Angel\QoH\Model\Ticket Ticket
      * @throws \Exception
      */
@@ -186,6 +186,9 @@ class TicketManagement
                 $winningTicket = $this->ticketRepository->save($ticket->getDataModel());
                 if (!$prize->getTicketId()){
                     $prize->setTicketId($winningTicket->getTicketId());
+                }
+                if (!$prize->getCardNumber()){
+                    $prize->setCardNumber($winningTicket->getCardNumber());
                 }
             } else {
                 $ticket->setStatus(Status::STATUS_LOSE);

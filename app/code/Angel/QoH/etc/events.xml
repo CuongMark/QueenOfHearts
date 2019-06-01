@@ -3,4 +3,7 @@
 	<event name="sales_invoice_item_save_after">
 		<observer instance="Angel\QoH\Observer\Sales\InvoiceItemSaveAfter" name="angel_qoh_observer_sales"/>
 	</event>
+	<event name="sales_quote_item_set_product">
+		<observer name="set_item_card_board_number" instance="Angel\QoH\Observer\Sales\SetItemDropdownAttribute" />
+	</event>
 </config>

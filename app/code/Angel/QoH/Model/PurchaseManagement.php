@@ -10,6 +10,7 @@ use Magento\Catalog\Model\ProductRepository;
 use Magento\Customer\Model\Session;
 use Magento\Framework\DataObject;
 use Magento\Framework\Message\ManagerInterface;
+use Magento\Sales\Model\Order\Invoice\Item;
 
 class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
 {
@@ -219,7 +220,9 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
 
 
     /**
-     * {@inheritdoc}
+     * @param Item $invoiceItem
+     * @return \Angel\QoH\Api\Data\TicketInterface|Data\Ticket|bool
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function createTicketByInvoiceItem($invoiceItem)
     {
@@ -230,7 +233,8 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
         try {
             $this->ticket->getResource()->beginTransaction();
             $qty = $invoiceItem->getQty();
-            $cardNumber = 1;
+
+            $cardNumber = $invoiceItem->getOrderItem()->getData('card_board_number');
 
             if ($qty<=0){
                 throw new \Exception('The Qty is not available');

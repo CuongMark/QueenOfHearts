@@ -18,6 +18,7 @@ interface PrizeInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const END_AT = 'end_at';
     const CREATED_AT = 'created_at';
     const PRIZE = 'prize';
+    const AUTO_DRAW = 'auto_draw';
 
     /**
      * Get prize_id
@@ -189,4 +190,16 @@ interface PrizeInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Angel\QoH\Api\Data\PrizeInterface
      */
     public function setTransaction($transaction);
+    /**
+     * Get is auto draw
+     * @return boolean|null
+     */
+    public function getAutoDraw();
+
+    /**
+     * Set is auto draw
+     * @param boolean $isAuctodraw
+     * @return \Angel\QoH\Api\Data\ReceiptInterface
+     */
+    public function setAutoDraw($isAuctodraw);
 }

@@ -255,4 +255,23 @@ class Prize extends \Magento\Framework\Api\AbstractExtensibleObject implements P
     {
         return $this->setData(self::TRANSACTION, $transaction);
     }
+
+    /**
+     * Get auto draw
+     * @return boolean|null
+     */
+    public function getAutoDraw()
+    {
+        return $this->_get(self::AUTO_DRAW);
+    }
+
+    /**
+     * Set transaction
+     * @param boolean $isAutoDraw
+     * @return \Angel\QoH\Api\Data\PrizeInterface
+     */
+    public function setAutoDraw($isAutoDraw)
+    {
+        return $this->setData(self::AUTO_DRAW, $isAutoDraw);
+    }
 }

@@ -3,6 +3,7 @@
 
 namespace Angel\QoH\Controller\Index;
 
+use Angel\QoH\Model\DrawCard;
 use Angel\QoH\Model\QohManagement;
 
 class Index extends \Magento\Framework\App\Action\Action
@@ -10,6 +11,7 @@ class Index extends \Magento\Framework\App\Action\Action
 
     protected $resultPageFactory;
     private $qohManagement;
+    private $drawCard;
 
     /**
      * Constructor
@@ -20,11 +22,13 @@ class Index extends \Magento\Framework\App\Action\Action
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        QohManagement $qohManagement
+        QohManagement $qohManagement,
+        DrawCard $drawCard
     ) {
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);
         $this->qohManagement = $qohManagement;
+        $this->drawCard = $drawCard;
     }
 
     /**
@@ -34,6 +38,7 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
+        $this->drawCard->massDrawCard();
         $this->qohManagement->massUpdateStatus();
         $page = $this->resultPageFactory->create();
         $page->getConfig()->addBodyClass('page-products');

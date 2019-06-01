@@ -8,6 +8,7 @@ use Angel\QoH\Model\Prize\Status;
 use Angel\QoH\Model\ResourceModel\Prize\Collection;
 use Angel\QoH\Model\ResourceModel\Prize\CollectionFactory;
 use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\ProductRepository;
 use Magento\Framework\Exception\LocalizedException;
 
 class PrizeManagement
@@ -28,13 +29,14 @@ class PrizeManagement
 
     /**
      * @param Product $product
-     * @return PrizeDataModel
+     * @return \Angel\QoH\Api\Data\PrizeInterface
      * @throws LocalizedException
      */
     public function createPrize($product){
         $this->prizeData->setProductId($product->getId())
             ->setStartAt($product->getQohStartAt())
             ->setEndAt($product->getQohFinishAt())
+            ->setAutoDraw($product->getData('raffle_auto_draw'))
             ->setWinningNumber(0)
             ->setPrize(0)
             ->setCard(0)
