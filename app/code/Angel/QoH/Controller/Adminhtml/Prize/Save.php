@@ -42,18 +42,26 @@ class Save extends \Magento\Backend\App\Action
         if ($data) {
             $id = $this->getRequest()->getParam('prize_id');
 
-            /** @var Prize $model */
+            /** @var \Angel\QoH\Model\Data\Prize|Prize $model */
             $model = $this->_objectManager->create(\Angel\QoH\Model\Prize::class)->load($id);
             if (!$model->getId() && $id) {
                 $this->messageManager->addErrorMessage(__('This Prize no longer exists.'));
                 return $resultRedirect->setPath('*/*/');
             }
-        
-            $model->setData($data);
+
+            // disable edit if auto draw
+            if ($model->getAutoDraw() && $data['status'] != Status::STATUS_PENDING){
+                $model->setStatus($data['status']);
+                $this->messageManager->addNoticeMessage(__('This prize is auto draw winning number. So you only able to change the status.'));
+            } else {
+                $model->setData($data);
+            }
         
             try {
                 if ($model->getStatus() == Status::STATUS_PROCESSING || $model->getStatus() == Status::STATUS_PAID){
-                    $this->ticketManagement->winningTickets($model);
+                    if ($model->getAutoDraw()) {
+                        $this->ticketManagement->winningTickets($model);
+                    }
                 } elseif ($model->getStatus() == Status::STATUS_CANCELED) {
                     $this->ticketManagement->cancelTickets($model);
                 }
