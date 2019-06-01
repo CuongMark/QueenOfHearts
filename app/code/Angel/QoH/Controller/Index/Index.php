@@ -38,7 +38,6 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        $this->drawCard->massDrawCard();
         $this->qohManagement->massUpdateStatus();
         $page = $this->resultPageFactory->create();
         $page->getConfig()->addBodyClass('page-products');

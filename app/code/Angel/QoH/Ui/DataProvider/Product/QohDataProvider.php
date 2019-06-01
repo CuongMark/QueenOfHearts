@@ -16,56 +16,6 @@ use Magento\Framework\Api\Search\ReportingInterface;
  */
 class QohDataProvider extends \Magento\Catalog\Ui\DataProvider\Product\ProductDataProvider
 {
-    /**
-     * @var TicketManagement
-     */
-    protected $ticketManagement;
-    /**
-     * @var PrizeManagement
-     */
-    protected $prizeManagement;
-
-    /**
-     * @var \Magento\Framework\Api\Search\SearchCriteria
-     */
-    protected $searchCriteria;
-
-    /**
-     * @var SearchCriteriaBuilder
-     */
-    protected $searchCriteriaBuilder;
-    /**
-     * @var ReportingInterface
-     */
-    protected $reporting;
-
-    /**
-     * FiftyDataProvider constructor.
-     * @param $name
-     * @param $primaryFieldName
-     * @param $requestFieldName
-     * @param CollectionFactory $collectionFactory
-     * @param array $addFieldStrategies
-     * @param array $addFilterStrategies
-     * @param array $meta
-     * @param array $data
-     */
-    public function __construct(
-        $name,
-        $primaryFieldName,
-        $requestFieldName,
-        CollectionFactory $collectionFactory,
-        ReportingInterface $reporting,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        $addFieldStrategies = [],
-        $addFilterStrategies = [],
-        array $meta = [],
-        array $data = []
-    ){
-        parent::__construct($name, $primaryFieldName, $requestFieldName, $collectionFactory, $addFieldStrategies, $addFilterStrategies, $meta, $data);
-        $this->reporting = $reporting;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-    }
 
     /**
      * Get data
