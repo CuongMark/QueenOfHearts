@@ -63,6 +63,13 @@ class DrawCard
         if ($prize->getStatus() != Status::STATUS_PENDING && $prize->getAutoDraw()) {
             throw new \Exception(__('Unable to draw card'));
         }
+
+        $waitingTicket = $this->getWaitingTickets($prize->getProductId());
+        if (!$waitingTicket->getSize()){
+            $prize->setStatus(Status::STATUS_CANCELED);
+            return;
+        }
+
         $winningNumber = $this->getWinningNumber($prize);
         $card = $this->getCardNumber($prize);
         /** @var Product $product */
@@ -104,10 +111,6 @@ class DrawCard
         } else {
             $newStatus = \Angel\QoH\Model\Product\Attribute\Source\Status::PROCESSING;
             $product->setData('qoh_status', $newStatus);
-            $additionalTime = (int)$product->getData('additional_time');
-            if ($additionalTime < 1) {
-                $additionalTime = 1;
-            }
 
             $date = new \DateTime();
             $newStartTime = $date->format('Y/m/d H:i:s');
@@ -125,6 +128,7 @@ class DrawCard
     public function getNewEndTime($product){
         $additionalTime = $product->getData('additional_time');
         $date = new \DateTime();
+//        $endTime = $product->getData('qoh_finish_at') ? strtotime($product->getData('qoh_finish_at')) : strtotime(time());
         if ($additionalTime == AdditionalTime::ADD_ONE_DAY){
             return $date->setTimestamp(strtotime('+1 day'))->format('Y/m/d H:i:s');
         } else if ($additionalTime == AdditionalTime::ADD_ONE_WEEK){

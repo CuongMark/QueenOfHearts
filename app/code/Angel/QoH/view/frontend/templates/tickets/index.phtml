@@ -18,7 +18,6 @@
                 <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Start') ?></th>
                 <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('End') ?></th>
                 <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Board Number') ?></th>
-                <th scope="col" class="col total"><?= /* @escapeNotVerified */ __('Price') ?></th>
                 <th scope="col" class="col date"><?= /* @escapeNotVerified */ __('Purchased At') ?></th>
                 <th scope="col" class="col status"><?= /* @escapeNotVerified */ __('Status') ?></th>
                 <th scope="col" class="col actions"><?= /* @escapeNotVerified */ __('Action') ?></th>
@@ -32,7 +31,6 @@
                     <td data-th="<?= $block->escapeHtml(__('Start Number')) ?>" class="col id"><?= /* @escapeNotVerified */ $_ticket->getStart() ?></td>
                     <td data-th="<?= $block->escapeHtml(__('End Number')) ?>" class="col id"><?= /* @escapeNotVerified */ $_ticket->getEnd() ?></td>
                     <td data-th="<?= $block->escapeHtml(__('End Number')) ?>" class="col id"><?= /* @escapeNotVerified */ $_ticket->getCardNumber() ?></td>
-                    <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col total"><?= /* @escapeNotVerified */ $block->formatPrice($_ticket->getPrice()) ?></td>
                     <td data-th="<?= $block->escapeHtml(__('Purchased At')) ?>" class="col date"><?= /* @escapeNotVerified */ $block->formatDate($_ticket->getCreatedAt(), 2 , true) ?></td>
                     <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status"><?= /* @escapeNotVerified */ $block->getStatusLabel($_ticket) ?></td>
                     <td data-th="<?= $block->escapeHtml(__('Actions')) ?>" class="col actions">

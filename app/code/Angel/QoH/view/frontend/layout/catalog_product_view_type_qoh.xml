@@ -13,9 +13,9 @@
                 <argument name="template" xsi:type="string">Angel_QoH::product/addtocart.phtml</argument>
             </action>
         </referenceBlock>
-        <referenceContainer name="content">
-            <block class="Angel\QoH\Block\Product\View" name="card.block" as="card.block" after="product.info.media" template="Angel_QoH::product/card_board.phtml"/>
-        </referenceContainer>
+<!--        <referenceContainer name="content">-->
+<!--            <block class="Angel\QoH\Block\Product\View" name="card.block" as="card.block" after="product.info.media" template="Angel_QoH::product/card_board.phtml"/>-->
+<!--        </referenceContainer>-->
         <referenceBlock name="reviews.tab" remove="true" />
     </body>
 </page>
