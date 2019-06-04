@@ -138,8 +138,8 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             ['value' => self::JACK_SPADES, 'label' => __('Jack Spades')],
             ['value' => self::QUEEN_SPADES, 'label' => __('Queen Spades')],
             ['value' => self::KING_SPADES, 'label' => __('King Spades')],
-            ['value' => self::JOCKER_A, 'label' => __('Jocker')],
-            ['value' => self::JOCKER_B, 'label' => __('Jocker')]
+            ['value' => self::JOCKER_A, 'label' => __('Joker')],
+            ['value' => self::JOCKER_B, 'label' => __('Joker')]
         ];
         return $this->_options;
     }
