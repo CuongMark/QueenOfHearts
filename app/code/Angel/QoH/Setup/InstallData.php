@@ -127,7 +127,7 @@ class InstallData implements InstallDataInterface
             \Magento\Catalog\Model\Product::ENTITY,
             'additional_time',
             [
-                'type' => 'int',
+                'type' => 'varchar',
                 'backend' => '',
                 'frontend' => '',
                 'label' => 'Additional Time',
@@ -187,7 +187,7 @@ class InstallData implements InstallDataInterface
             \Magento\Catalog\Model\Product::ENTITY,
             'qoh_queen_prize',
             [
-                'type' => 'varchar',
+                'type' => 'decimal',
                 'backend' => '',
                 'frontend' => '',
                 'label' => 'Queen of Hearts Prize',

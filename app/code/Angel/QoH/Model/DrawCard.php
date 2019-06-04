@@ -67,6 +67,11 @@ class DrawCard
         $waitingTicket = $this->getWaitingTickets($prize->getProductId());
         if (!$waitingTicket->getSize()){
             $prize->setStatus(Status::STATUS_CANCELED);
+            $this->prizeRepository->save($prize->getDataModel());
+            $newStatus = \Angel\QoH\Model\Product\Attribute\Source\Status::PROCESSING;
+            $product = $this->productRepository->getById($prize->getProductId());
+            $product->setData('qoh_status', $newStatus);
+            $this->productRepository->save($product);
             return;
         }
 
@@ -114,30 +119,11 @@ class DrawCard
 
             $date = new \DateTime();
             $newStartTime = $date->format('Y/m/d H:i:s');
-            $newEndTime = $this->getNewEndTime($product);
+            $newEndTime = AdditionalTime::getNewEndTime($product);
             $product->setData('qoh_start_at', $newStartTime);
             $product->setData('qoh_finish_at', $newEndTime);
         }
         $this->productRepository->save($product);
-    }
-
-    /**
-     * @param $product
-     * @return string
-     */
-    public function getNewEndTime($product){
-        $additionalTime = $product->getData('additional_time');
-        $date = new \DateTime();
-//        $endTime = $product->getData('qoh_finish_at') ? strtotime($product->getData('qoh_finish_at')) : strtotime(time());
-        if ($additionalTime == AdditionalTime::ADD_ONE_DAY){
-            return $date->setTimestamp(strtotime('+1 day'))->format('Y/m/d H:i:s');
-        } else if ($additionalTime == AdditionalTime::ADD_ONE_WEEK){
-            return $date->setTimestamp(strtotime('+1 week'))->format('Y/m/d H:i:s');
-        } else if ($additionalTime == AdditionalTime::ADD_ONE_MONTH){
-            return $date->setTimestamp(strtotime('+1 month'))->format('Y/m/d H:i:s');
-        } else {
-            return $date->setTimestamp(strtotime('+1 month'))->format('Y/m/d H:i:s');
-        }
     }
 
     /**

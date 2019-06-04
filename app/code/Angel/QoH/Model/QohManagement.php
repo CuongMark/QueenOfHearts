@@ -4,6 +4,7 @@
 namespace Angel\QoH\Model;
 
 
+use Angel\QoH\Model\Product\Attribute\Source\AdditionalTime;
 use Angel\QoH\Model\Product\Attribute\Source\Status;
 use Angel\QoH\Model\Product\Type\Qoh;
 use Magento\Catalog\Model\Product;
@@ -78,9 +79,14 @@ class QohManagement
                     if ($now < $start_at){
                         $this->productRepository->save($product->setQohStatus(Status::NOT_START));
                     } elseif ($now > $finish_at){
-                        $this->ticketManagement->waittingTickets($product);
-                        $this->prizeManagement->createPrize($product);
-                        $this->productRepository->save($product->setQohStatus(Status::WAITING));
+                        if ($this->ticketManagement->getProcessingTicket($product->getId())->getSize()) {
+                            $this->ticketManagement->waittingTickets($product);
+                            $this->prizeManagement->createPrize($product);
+                            $this->productRepository->save($product->setQohStatus(Status::WAITING));
+                        } else {
+                            $product->setData('qoh_finish_at', AdditionalTime::getNewEndTime($product));
+                            $this->productRepository->save($product);
+                        }
                     }
                 }
                 $product->getResource()->commit();
@@ -94,7 +100,7 @@ class QohManagement
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->addAttributeToFilter('type_id', Qoh::TYPE_ID)
             ->addAttributeToFilter('qoh_status', ['in' => [Status::NOT_START, Status::PROCESSING]])
-            ->addAttributeToSelect(['qoh_status', 'qoh_start_at', 'qoh_finish_at', 'qoh_start_pot']);
+            ->addAttributeToSelect(['qoh_status', 'qoh_start_at', 'qoh_finish_at', 'qoh_start_pot', 'additional_time']);
         foreach ($productCollection as $product){
             $this->updateStatus($product);
         }
