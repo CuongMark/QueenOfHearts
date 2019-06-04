@@ -205,8 +205,8 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
             self::JACK_SPADES => __('Jack Spades'),
             self::QUEEN_SPADES => __('Queen Spades'),
             self::KING_SPADES => __('King Spades'),
-            self::JOCKER_A => __('Jocker Red'),
-            self::JOCKER_B => __('Jocker Black')
+            self::JOCKER_A => __('Joker Red'),
+            self::JOCKER_B => __('Joker Black')
         );
     }
 
