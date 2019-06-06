@@ -99,12 +99,6 @@ $_helper = $this->helper('Magento\Catalog\Helper\Output');
                                                 <span><?= /* @escapeNotVerified */ __('Pruchase Tickets') ?></span>
                                             </button>
                                         <?php endif; ?>
-                                    <?php else: ?>
-                                        <?php if ($_product->isAvailable()): ?>
-                                            <div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
-                                        <?php else: ?>
-                                            <div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
-                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                             </div>

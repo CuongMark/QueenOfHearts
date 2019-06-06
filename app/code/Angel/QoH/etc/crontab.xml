@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
-	<group id="default">
+	<group id="index">
 		<job instance="Angel\QoH\Cron\UpdateStatus" method="execute" name="angel_qoh_updatestatus">
 			<schedule>*/5 * * * *</schedule>
 		</job>

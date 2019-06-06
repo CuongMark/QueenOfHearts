@@ -100,7 +100,7 @@ class QohManagement
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->addAttributeToFilter('type_id', Qoh::TYPE_ID)
             ->addAttributeToFilter('qoh_status', ['in' => [Status::NOT_START, Status::PROCESSING]])
-            ->addAttributeToSelect(['qoh_status', 'qoh_start_at', 'qoh_finish_at', 'qoh_start_pot', 'additional_time']);
+            ->addAttributeToSelect(['qoh_status', 'qoh_start_at', 'qoh_finish_at', 'qoh_start_pot', 'additional_time', 'raffle_auto_draw']);
         foreach ($productCollection as $product){
             $this->updateStatus($product);
         }
