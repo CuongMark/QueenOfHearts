@@ -4,13 +4,13 @@
 namespace Angel\QoH\Model;
 
 
+use Angel\Core\Model\RandomNumberGenerate;
 use Angel\QoH\Model\Prize\Status;
 use Angel\QoH\Model\Product\Attribute\Source\AdditionalTime;
 use Angel\QoH\Model\ResourceModel\Prize\CollectionFactory;
 use Angel\QoH\Model\Card\Options as CardOptions;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ProductRepository;
-use Magento\Config\Model\Config\Source\Yesno;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
 use Angel\QoH\Model\ResourceModel\Ticket\Collection;

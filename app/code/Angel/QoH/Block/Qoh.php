@@ -46,7 +46,8 @@ class Qoh extends \Magento\Framework\View\Element\Template
             $prizes = $this->prizeCollectionFactory->create();
             $prizes->addFieldToFilter('status', ['in' => [Status::STATUS_PROCESSING, Status::STATUS_PAID]])
                 ->setCurPage(1)
-                ->setPageSize(5);
+                ->setPageSize(5)
+                ->setOrder('prize_id', 'DESC');
             $this->qohManagement->joinProductName($prizes);
         } catch (\Exception $e){
             return false;
