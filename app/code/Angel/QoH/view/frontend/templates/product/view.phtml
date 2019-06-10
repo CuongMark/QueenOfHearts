@@ -5,6 +5,34 @@
 ?>
 <?php if ($block->getProduct()->getQohStatus() == \Angel\QoH\Model\Product\Attribute\Source\Status::FINISHED): ?>
     <h2><?= __('Queen of Hearts Raffle was finished') ?></h2>
+        <h3><?= __('JackPot') ?>: <?= $block->getJackpotFormated() ?></h3>
+        <script type="text/x-magento-init">
+        {
+            "#cardBoard": {
+                "Angel_QoH/js/cardBoard": {
+                    "jackPot" : "<?= $block->getJackPot() ?>",
+                    "prizes" : <?= json_encode($block->getPrizes()) ?>
+                }
+            }
+        }
+    </script>
+        <div id="cardBoard" data-bind="scope:'cardBoard'">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <script type="text/x-magento-init">
+            {
+                "#cardBoard": {
+                    "Magento_Ui/js/core/app": {
+                        "components" : {
+                            "cardBoard" : {
+                                "component": "Angel_QoH/js/view/card-board"
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        </div>
+
 <?php elseif ($block->getProduct()->getQohStatus() == \Angel\QoH\Model\Product\Attribute\Source\Status::CANCELED): ?>
     <h2><?= __('Queen of Hearts Raffle was canceled') ?></h2>
 <?php else: ?>

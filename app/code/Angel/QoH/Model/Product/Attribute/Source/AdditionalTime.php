@@ -11,7 +11,7 @@ class AdditionalTime extends \Magento\Eav\Model\Entity\Attribute\Source\Abstract
     const ADD_ONE_MONTH = '+1 month';
     const ADD_ONE_HOUR = '+1 hour';
     const FIVE_MINUTES = '+2 minutes';
-    const TWO_MINUTES = '+2 minutes';
+    const TWO_MINUTES = '+5 minutes';
     const THIRTY_MINUTE = '+30 minutes';
     /**
      * getAllOptions
@@ -40,8 +40,6 @@ class AdditionalTime extends \Magento\Eav\Model\Entity\Attribute\Source\Abstract
     public static function getNewEndTime($product){
         $additionalTime = $product->getData('additional_time');
         $date = new \DateTime();
-//        var_dump($date->setTimestamp(strtotime($additionalTime))->format('Y/m/d H:i:s'));
-//        die('234');
         return $date->setTimestamp(strtotime($additionalTime))->format('Y/m/d H:i:s');
     }
 }

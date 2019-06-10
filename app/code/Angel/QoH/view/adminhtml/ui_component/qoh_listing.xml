@@ -113,7 +113,7 @@
                 <!--<label translate="true">Total Price</label>-->
             <!--</settings>-->
         <!--</column>-->
-        <column name="qoh_start_pot" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="71">
+        <column name="oqh_start_pot" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="71">
             <settings>
                 <addField>true</addField>
                 <filter>textRange</filter>

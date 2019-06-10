@@ -32,6 +32,10 @@ class View extends \Magento\Catalog\Block\Product\View
         return $this->qohManagement->getJackPot($this->getProduct());
     }
 
+    public function getJackpotFormated(){
+        return $this->priceCurrency->format($this->qohManagement->getJackPot($this->getProduct()));
+    }
+
     /**
      * @return array
      */

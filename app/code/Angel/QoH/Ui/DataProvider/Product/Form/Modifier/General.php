@@ -61,15 +61,41 @@ class General extends AbstractModifier
         $meta = $this->enableTime($meta);
 //        $meta = $this->disableStatusField($meta);
 //        /** @var \Angel\QoH\Model\Product\Type\Qph $productTypeInstance */
-//        $productTypeInstance = $product->getTypeInstance();
-//        if ($product->getQoHStatus() != Status::NOT_START) {
-////            $meta = $this->disableStartAtField($meta);
-//            $meta = $this->disableStartPotField($meta);
-//        }
+        if ($product->getQohStatus() != Status::NOT_START) {
+            $meta = $this->disableStartPotField($meta);
+            $meta = $this->disablePriceField($meta);
+        }
 //        if ($productTypeInstance->isFinished($product)) {
 //            $meta = $this->disableFinishAtField($meta);
 //        }
 
+        return $meta;
+    }
+
+
+    protected function disablePriceField(array $meta){
+        $meta = array_replace_recursive(
+            $meta,
+            [
+                'product-details' => [
+                    'children' => [
+                        'container_price' => [
+                            'children' => [
+                                'price' =>[
+                                    'arguments' => [
+                                        'data' => [
+                                            'config' => [
+                                                'disabled' => true,
+                                            ],
+                                        ],
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        );
         return $meta;
     }
 
@@ -105,9 +131,9 @@ class General extends AbstractModifier
             [
                 'product-details' => [
                     'children' => [
-                        'container_start_pot' => [
+                        'container_qoh_start_at' => [
                             'children' => [
-                                'start_pot' =>[
+                                'qoh_start_at' =>[
                                     'arguments' => [
                                         'data' => [
                                             'config' => [
