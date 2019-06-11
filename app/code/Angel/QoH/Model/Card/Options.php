@@ -247,6 +247,15 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     }
 
     /**
+     * @param int $card
+     * @return mixed
+     */
+    public static function getCardLabel($card){
+        $cards = self::getOptionArray();
+        return $cards[$card];
+    }
+
+    /**
      * @return array
      */
     static public function getCardSrc(){

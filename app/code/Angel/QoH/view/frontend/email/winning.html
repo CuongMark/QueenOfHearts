@@ -1,0 +1,28 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "You won a 50/50 raffle at %store_name" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var customer.name":"Customer Name"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">{{trans "Hello, %customer_name" customer_name=$customer.getFirstname()}}</p>
+<br>
+
+<p>
+    {{trans "You won the Queen of Hearts raffle %product_name at %store_name." product_name=$product_name store_name=$store.getFrontendName()}}<br>
+    {{trans "The winning number is: %winning_number" winning_number=$winning_number }}<br>
+    {{trans "The card drawn is: %card_label" winning_number=card_label }}<br>
+    {{trans "The winning prize is: %winning_prize" winning_prize=$winning_prize }}<br>
+    {{trans "Ticket number is from %start to %end." start=$start end=$end}}<br>
+    {{trans "Ticket price is: %price." price=$price}}<br>
+</p>
+<br>
+
+<p>{{trans "Thanks,<br>%store_name" store_name=$store.getFrontendName() |raw}}</p>
+
+{{template config_path="design/email/footer_template"}}

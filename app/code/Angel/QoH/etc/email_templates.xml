@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="angel_qoh_purchase_ticket" label="Purchase Queen of Hearts raffle ticket" file="purchase-ticket.html" type="html" module="Angel_QoH" area="frontend"/>
+    <template id="angel_qoh_winning" label="Notify wining Queen of Hearts raffle to customer" file="winning.html" type="html" module="Angel_QoH" area="frontend"/>
+    <template id="angel_qoh_losing" label="Notify finished Queen of Hearts raffle to customer" file="losing.html" type="html" module="Angel_QoH" area="frontend"/>
+</config>

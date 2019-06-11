@@ -7,23 +7,42 @@ namespace Angel\QoH\Model;
 use Angel\QoH\Model\ResourceModel\Ticket\Collection;
 use Angel\QoH\Model\ResourceModel\Ticket\CollectionFactory;
 use Angel\QoH\Model\Ticket\Status;
+use Angel\QoH\Service\Email;
 use Magento\Catalog\Model\Product;
 
 class TicketManagement
 {
     const INVOICE_ITEM_TABLE = 'invoice_item';
     const INVOICE_TABLE = 'invoice';
-    const ORDER_TABLE = 'order'; 
-    
-    private $collectionFactory;
-    private $ticketRepository;
+    const ORDER_TABLE = 'order';
 
+    /**
+     * @var CollectionFactory
+     */
+    protected $collectionFactory;
+    /**
+     * @var TicketRepository
+     */
+    protected $ticketRepository;
+    /**
+     * @var Email
+     */
+    protected $emailService;
+
+    /**
+     * TicketManagement constructor.
+     * @param CollectionFactory $collectionFactory
+     * @param TicketRepository $ticketRepository
+     * @param Email $emailService
+     */
     public function __construct(
         CollectionFactory $collectionFactory,
-        TicketRepository $ticketRepository
+        TicketRepository $ticketRepository,
+        Email $emailService
     ){
         $this->collectionFactory = $collectionFactory;
         $this->ticketRepository = $ticketRepository;
+        $this->emailService = $emailService;
     }
 
     /**
@@ -173,16 +192,18 @@ class TicketManagement
 
     /**
      * @param Prize|\Angel\QoH\Model\Data\Prize $prize
+     * @param Product $product
      * @return \Angel\QoH\Model\Data\Ticket|\Angel\QoH\Model\Ticket Ticket
      * @throws \Exception
      */
-    public function winningTickets($prize){
+    public function winningTickets($prize, $product){
         $processingTicket = $this->getProcessingTicket($prize->getProductId());
         /** @var \Angel\QoH\Model\Ticket $ticket */
         foreach ($processingTicket as $ticket){
             if ($ticket->getStart() <= $prize->getWinningNumber() && $prize->getWinningNumber() <= $ticket->getEnd()){
                 $ticket->setWinningNumber($prize->getWinningNumber());
                 $ticket->setStatus(Status::STATUS_WINNING);
+                /** @var \Angel\QoH\Model\Ticket $winningTicket */
                 $winningTicket = $this->ticketRepository->save($ticket->getDataModel());
                 if (!$prize->getTicketId()){
                     $prize->setTicketId($winningTicket->getTicketId());
@@ -190,9 +211,11 @@ class TicketManagement
                 if (!$prize->getCardNumber()){
                     $prize->setCardNumber($winningTicket->getCardNumber());
                 }
+                $this->emailService->sendWinningEmail($product, $prize, $winningTicket);
             } else {
                 $ticket->setStatus(Status::STATUS_LOSE);
                 $this->ticketRepository->save($ticket->getDataModel());
+                $this->emailService->sendFinishedEmail($product, $prize, $ticket);
             }
         }
     }

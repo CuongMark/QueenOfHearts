@@ -11,19 +11,20 @@
  * Time: 22:26
  */
 
-namespace Angel\Fifty\Service;
+namespace Angel\QoH\Service;
 
-use Angel\Fifty\Model\Prize;
-use Angel\Fifty\Model\Ticket;
+use Angel\QoH\Model\Card\Options;
+use Angel\QoH\Model\Prize;
+use Angel\QoH\Model\Ticket;
 use Magento\Catalog\Model\Product;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 
 class Email
 {
-    const EMAIL_TEMPLATE_WINNING = "angel_fifty_winning";
-    const EMAIL_TEMPLATE_FINISHED = "angel_fifty_losing";
-    const EMAIL_TEMPLATE_NEW_TICKET = "angel_fifty_purchase_ticket";
+    const EMAIL_TEMPLATE_WINNING = "angel_qoh_winning";
+    const EMAIL_TEMPLATE_FINISHED = "angel_qoh_losing";
+    const EMAIL_TEMPLATE_NEW_TICKET = "angel_qoh_purchase_ticket";
 
     /** @var array of name and email of the sender ['name'=>'sender_name', 'email'=>'steve@magetore.com']  */
     protected $_sender;
@@ -163,21 +164,21 @@ class Email
 
     /**
      * @param Product $product
-     * @param Prize $prize
-     * @param Ticket $ticket
+     * @param Prize|\Angel\QoH\Model\Data\Prize $prize
+     * @param Ticket|\Angel\QoH\Model\Data\Ticket $ticket
      * @return string
      */
     public function sendWinningEmail($product, $prize, $ticket){
         try {
             $customer = $this->customerRepository->getById($ticket->getCustomerId());
-            $ticket->setCustomerEmail($customer->getEmail());
-            $this->setReceivers($ticket->getCustomerEmail());
+            $this->setReceivers($customer->getEmail());
             $this->setEmailTemplate(self::EMAIL_TEMPLATE_NEW_TICKET);
             $templateVars = [
                 'customer' => $customer,
                 'product_name' => $product->getName(),
                 'winning_number' => $prize->getWinningNumber(),
-                'winnint_prize' => $this->priceCurrency->format($prize->getWinningPrize()),
+                'card_label' => Options::getCardLabel($prize->getCard()),
+                'winning_prize' => $this->priceCurrency->format($prize->getPrize()),
                 'start' => $ticket->getStart(),
                 'end' => $ticket->getEnd(),
                 'price' => $this->priceCurrency->format($ticket->getPrice(), false, 0)
@@ -193,20 +194,21 @@ class Email
 
     /**
      * @param Product $product
-     * @param Prize $prize
-     * @param Ticket $ticket
+     * @param Prize|\Angel\QoH\Model\Data\Prize $prize
+     * @param Ticket|\Angel\QoH\Model\Data\Ticket $ticket
      * @param string $email
      */
-    public function sendFinishedEmail($product, $prize, $ticket, $email){
+    public function sendFinishedEmail($product, $prize, $ticket){
         try {
             $customer = $this->customerRepository->getById($ticket->getCustomerId());
-            $this->setReceivers($email);
+            $this->setReceivers($customer->getEmail());
             $this->setEmailTemplate(self::EMAIL_TEMPLATE_NEW_TICKET);
             $templateVars = [
                 'customer' => $customer,
                 'product_name' => $product->getName(),
                 'winning_number' => $prize->getWinningNumber(),
-                'winnint_prize' => $this->priceCurrency->format($prize->getWinningPrize(), false, 0)
+                'card_label' => Options::getCardLabel($prize->getCard()),
+                'winning_prize' => $this->priceCurrency->format($prize->getPrize(), false, 0)
             ];
             $this->setTemplateVars($templateVars);
             //send email
@@ -218,12 +220,12 @@ class Email
 
     /**
      * @param Product $product
-     * @param Ticket $ticket
+     * @param Ticket|\Angel\QoH\Model\Data\Ticket $ticket
      */
-    public function sendNewTicketEmail($product, $ticket, $email){
+    public function sendNewTicketEmail($product, $ticket){
         try {
             $customer = $this->customerRepository->getById($ticket->getCustomerId());
-            $this->setReceivers($email);
+            $this->setReceivers($customer->getEmail());
             $this->setEmailTemplate(self::EMAIL_TEMPLATE_NEW_TICKET);
             $templateVars = [
                 'customer' => $customer,
@@ -231,6 +233,7 @@ class Email
                 'start' => $ticket->getStart(),
                 'end' => $ticket->getEnd(),
                 'only' => $ticket->getStart() == $ticket->getEnd(),
+                'board_number' => $ticket->getCardNumber(),
                 'price' => $this->priceCurrency->format($ticket->getPrice(), false, 0)
             ];
             $this->setTemplateVars($templateVars);

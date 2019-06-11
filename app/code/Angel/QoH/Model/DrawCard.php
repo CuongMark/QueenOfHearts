@@ -89,7 +89,7 @@ class DrawCard
 
             /** update ticket status and set winning ticket id to prize */
             // TODO use update query to speed up
-            $this->ticketManagement->winningTickets($prize);
+            $this->ticketManagement->winningTickets($prize, $product);
             // TODO transfer to credit
             $prize->setStatus(Status::STATUS_PROCESSING);
             $this->prizeRepository->save($prize->getDataModel());

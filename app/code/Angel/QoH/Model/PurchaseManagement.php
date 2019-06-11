@@ -5,6 +5,7 @@ namespace Angel\QoH\Model;
 
 use Angel\QoH\Model\Product\Type\Qoh;
 use Angel\QoH\Model\Ticket\Status;
+use Angel\QoH\Service\Email;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Customer\Model\Session;
@@ -15,17 +16,65 @@ use Magento\Sales\Model\Order\Invoice\Item;
 class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
 {
 
-    private $messageManager;
-    private $customerSession;
-    private $productRepository;
-    private $ticketDataModel;
-    private $ticketRepository;
-    private $ticketManagement;
-    private $eventManager;
-    private $prizeManagement;
-    private $ticket;
-    private $customerManagement;
+    /**
+     * @var ManagerInterface
+     */
+    protected $messageManager;
+    /**
+     * @var Session
+     */
+    protected $customerSession;
+    /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
+    /**
+     * @var Data\Ticket
+     */
+    protected $ticketDataModel;
+    /**
+     * @var TicketRepository
+     */
+    protected $ticketRepository;
+    /**
+     * @var TicketManagement
+     */
+    protected $ticketManagement;
+    /**
+     * @var \Magento\Framework\Event\ManagerInterface
+     */
+    protected $eventManager;
+    /**
+     * @var PrizeManagement
+     */
+    protected $prizeManagement;
+    /**
+     * @var Ticket
+     */
+    protected $ticket;
+    /**
+     * @var CustomerManagement
+     */
+    protected $customerManagement;
+    /**
+     * @var Email
+     */
+    protected $emailService;
 
+    /**
+     * PurchaseManagement constructor.
+     * @param ManagerInterface $message
+     * @param Session $customerSession
+     * @param ProductRepository $productRepository
+     * @param Data\Ticket $ticketDataModel
+     * @param TicketRepository $ticketRepository
+     * @param TicketManagement $ticketManagement
+     * @param PrizeManagement $prizeManagement
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param Ticket $ticket
+     * @param CustomerManagement $customerManagement
+     * @param Email $emailService
+     */
     public function __construct(
         ManagerInterface $message,
         Session $customerSession,
@@ -36,7 +85,8 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
         PrizeManagement $prizeManagement,
         \Magento\Framework\Event\ManagerInterface $eventManager,
         Ticket $ticket,
-        CustomerManagement $customerManagement
+        CustomerManagement $customerManagement,
+        Email $emailService
     ){
         $this->messageManager = $message;
         $this->customerSession = $customerSession;
@@ -48,6 +98,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
         $this->eventManager = $eventManager;
         $this->ticket = $ticket;
         $this->customerManagement = $customerManagement;
+        $this->emailService = $emailService;
     }
 
     /**
@@ -94,6 +145,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
 
             $this->eventManager->dispatch('angel_qoh_create_new_ticket', ['ticket' => $this->ticketDataModel, 'product' => $product]);
             $ticketData = $this->ticketRepository->save($this->ticketDataModel);
+            $this->emailService->sendNewTicketEmail($product, $this->ticketDataModel);
 
             $this->ticket->getResource()->commit();
             if (!$freeTickets){
@@ -152,7 +204,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
                 ->setStatus($status)
                 ->setSerial($this->generateSerial());
             $ticketData = $this->ticketRepository->save($this->ticketDataModel);
-
+            $this->emailService->sendNewTicketEmail($product, $this->ticketDataModel);
             $this->ticket->getResource()->commit();
             if (!$freeTickets){
                 $this->messageManager->addSuccessMessage(__('You purchased successfully %1 ticket(s)', $qty));
@@ -276,6 +328,8 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
                 ->setSerial($this->generateSerial())
                 ->setInvoiceItemId($invoiceItem->getId());
             $ticketData = $this->ticketRepository->save($this->ticketDataModel);
+
+            $this->emailService->sendNewTicketEmail($product, $this->ticketDataModel);
 
             $this->ticket->getResource()->commit();
             if (!$freeTickets){
