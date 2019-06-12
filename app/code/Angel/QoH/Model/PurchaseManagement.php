@@ -62,6 +62,11 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
     protected $emailService;
 
     /**
+     * @var QohManagement
+     */
+    protected $qohManagement;
+
+    /**
      * PurchaseManagement constructor.
      * @param ManagerInterface $message
      * @param Session $customerSession
@@ -86,7 +91,8 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
         \Magento\Framework\Event\ManagerInterface $eventManager,
         Ticket $ticket,
         CustomerManagement $customerManagement,
-        Email $emailService
+        Email $emailService,
+        QohManagement $qohManagement
     ){
         $this->messageManager = $message;
         $this->customerSession = $customerSession;
@@ -99,6 +105,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
         $this->ticket = $ticket;
         $this->customerManagement = $customerManagement;
         $this->emailService = $emailService;
+        $this->qohManagement = $qohManagement;
     }
 
     /**
@@ -115,6 +122,9 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
                 throw new \Exception('The Card Number is not available');
             }
             $product = $this->productRepository->getById($product_id);
+
+            $this->qohManagement->updateStatus($product);
+
             if ($product->getQohStatus() != \Angel\QoH\Model\Product\Attribute\Source\Status::PROCESSING){
                 throw new \Exception('The Raffle is not saleable');
             }
@@ -282,6 +292,7 @@ class PurchaseManagement implements \Angel\QoH\Api\PurchaseManagementInterface
         if ($product->getTypeId()!=Qoh::TYPE_ID){
             return true;
         }
+        $this->qohManagement->updateStatus($product);
         try {
             $this->ticket->getResource()->beginTransaction();
             $qty = $invoiceItem->getQty();

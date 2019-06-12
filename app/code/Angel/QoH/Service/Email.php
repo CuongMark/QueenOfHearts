@@ -166,7 +166,6 @@ class Email
      * @param Product $product
      * @param Prize|\Angel\QoH\Model\Data\Prize $prize
      * @param Ticket|\Angel\QoH\Model\Data\Ticket $ticket
-     * @return string
      */
     public function sendWinningEmail($product, $prize, $ticket){
         try {
@@ -189,7 +188,6 @@ class Email
         } catch (\Exception $e){
 
         }
-        return $ticket->getCustomerEmail();
     }
 
     /**

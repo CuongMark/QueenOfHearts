@@ -33,4 +33,11 @@
 	<type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
 		<plugin name="add_card_number_quote_to_order_item" type="Angel\QoH\Plugin\CardNumberQuoteToOrderItem"/>
 	</type>
+	<type name="Magento\Framework\Console\CommandList">
+		<arguments>
+			<argument name="commands" xsi:type="array">
+				<item name="angel_qoh_draw" xsi:type="object">Angel\QoH\Console\Command\DrawCard</item>
+			</argument>
+		</arguments>
+	</type>
 </config>
