@@ -14,24 +14,39 @@ use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 
 class QohManagement
 {
-    private $ticketManagement;
-    private $productRepository;
-    private $productCollectionFactory;
-    private $prizeRepository;
-    private $prizeManagement;
+    protected $ticketManagement;
+    protected $productRepository;
+    protected $productCollectionFactory;
+    protected $prizeRepository;
+    protected $prizeManagement;
+    /**
+     * @var \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory
+     */
+    private $customerCollectionFactory;
 
+    /**
+     * QohManagement constructor.
+     * @param TicketManagement $ticketManagement
+     * @param PrizeRepository $prizeRepository
+     * @param PrizeManagement $prizeManagement
+     * @param ProductRepository $productRepository
+     * @param CollectionFactory $productCollectionFactory
+     * @param \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory $customerCollectionFactory
+     */
     public function __construct(
         TicketManagement $ticketManagement,
         PrizeRepository $prizeRepository,
         PrizeManagement $prizeManagement,
         ProductRepository $productRepository,
-        CollectionFactory $productCollectionFactory
+        CollectionFactory $productCollectionFactory,
+        \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory $customerCollectionFactory
     ){
         $this->ticketManagement = $ticketManagement;
         $this->prizeRepository = $prizeRepository;
         $this->productRepository = $productRepository;
         $this->productCollectionFactory = $productCollectionFactory;
         $this->prizeManagement = $prizeManagement;
+        $this->customerCollectionFactory = $customerCollectionFactory;
     }
 
     public function getJackPot($product){
@@ -132,5 +147,23 @@ class QohManagement
             ['customer_email' => 'customer.email']
         );
         return $collection;
+    }
+
+
+    /**
+     * @param \Angel\QoH\Model\ResourceModel\Prize\Collection $collection
+     */
+    public function joinBidderName($collection){
+        $customerCollection = $this->customerCollectionFactory->create()
+            ->addAttributeToSelect(['vgiss_nick_name']);
+        $customerCollection->joinAttribute('vgiss_nick_name', 'customer/vgiss_nick_name', 'entity_id', null, 'inner');
+        $collection->getSelect()->joinLeft(['ticket' => $collection->getTable('angel_qoh_ticket')],
+            'main_table.ticket_id = ticket.ticket_id',
+            ['customer_id' => 'ticket.customer_id']
+        );
+        $collection->getSelect()->joinLeft(['customer' => new \Zend_Db_Expr('('.$customerCollection->getSelect()->__toString().')')],
+            "ticket.customer_id = customer.entity_id",
+            ['vgiss_nick_name' => 'customer.vgiss_nick_name']
+        );
     }
 }

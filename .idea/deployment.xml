@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="27" uploadOnCheckin="ebb86c4c-687c-41d0-8ab3-87a4912f14d9">
+  <component name="PublishConfigData" autoUpload="Always" serverName="local 231" uploadOnCheckin="9831a422-a349-4493-b6d0-c37d40eda5cb">
     <serverData>
-      <paths name="194">
+      <paths name="local 231">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
-      <paths name="27">
+      <paths name="qohcharity">
         <serverdata>
           <mappings>
-            <mapping deploy="/qoh" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="vgiss">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/qohcharity.com/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/qohcharity.com" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="vgiss.com">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/public_html" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
     </serverData>
-    <option name="myUploadOnCheckinName" value="vgiss" />
+    <option name="myUploadOnCheckinName" value="vgiss.com" />
     <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

@@ -17,6 +17,7 @@
                         <img class="prize_image" src="<?= $block->getImageSrc($prize->getCard()) ?>" />
                         <div class="prize_info">
                             <p><strong><?= __('Winning Number') ?></strong>: <span><?= $prize->getWinningNumber() ?></span></p>
+                            <p><strong><?= __('Nick Name:') ?></strong>: <span><?= $prize->getVgissNickName() ?></span></p>
                             <p><strong><?= __('Prize') ?></strong>: <span><?= $block->formatPrice($prize->getPrize()) ?></span></p>
                         </div>
                     </div>
